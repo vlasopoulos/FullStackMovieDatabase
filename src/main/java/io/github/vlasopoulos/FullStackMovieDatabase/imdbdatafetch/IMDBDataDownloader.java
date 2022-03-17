@@ -1,6 +1,8 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,6 +22,8 @@ public class IMDBDataDownloader extends Thread {
 
     URL domain;
     private final Map<URL,File> urlFileMap;
+    @Autowired
+    UpdateDatabaseTables updateDatabaseTables;
 
     public IMDBDataDownloader()  throws IOException {
         domain = new URL("https://datasets.imdbws.com");
@@ -50,6 +54,7 @@ public class IMDBDataDownloader extends Thread {
         try {
             System.out.println("Finished all downloads = " + download());
             new DataPreProcessor().process();
+            updateDatabaseTables.update();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

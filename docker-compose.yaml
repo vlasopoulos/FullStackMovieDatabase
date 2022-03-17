@@ -10,6 +10,9 @@ services:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
+    command: >
+      -c max_wal_size=4GB
+      -c min_wal_size=512MB
     restart: unless-stopped
 
   moviedatabase:
