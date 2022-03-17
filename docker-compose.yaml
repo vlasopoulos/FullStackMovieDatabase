@@ -1,0 +1,28 @@
+services:
+  postgres:
+    container_name: postgresmoviedatabase
+    image: postgres:14
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  moviedatabase:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      spring.datasource.url: "jdbc:postgresql://postgresmoviedatabase:5432/movie_database"
+      spring.datasource.username: "admin"
+      spring.datasource.password: "password"
+      spring.datasource.driver-class-name: "org.postgresql.Driver"
+
+
+
+volumes:
+  postgres:
