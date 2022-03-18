@@ -2,7 +2,10 @@ package io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,12 +21,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class IMDBDataDownloader extends Thread {
 
     URL domain;
     private final Map<URL,File> urlFileMap;
+
     @Autowired
-    UpdateDatabaseTables updateDatabaseTables;
+    private UpdateDatabaseTables updateDatabaseTables;
+
 
     public IMDBDataDownloader()  throws IOException {
         domain = new URL("https://datasets.imdbws.com");
@@ -38,6 +44,9 @@ public class IMDBDataDownloader extends Thread {
                 ,new URL(domain + "/title.ratings.tsv.gz"), new File("temp/title.ratings.tsv.gz")
         );
     }
+
+
+
 
     private boolean download() throws InterruptedException {
         ExecutorService pool = Executors.newFixedThreadPool(7);

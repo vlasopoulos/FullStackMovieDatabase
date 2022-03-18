@@ -3,6 +3,9 @@ package io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch;
 import org.postgresql.PGConnection;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.relational.core.sql.Update;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +14,13 @@ import java.sql.SQLException;
 
 @Component
 public class UpdateDatabaseTables {
-    private final JdbcTemplate jdbcTemplate;
 
+    private final JdbcTemplate jdbcTemplate;
 
     public UpdateDatabaseTables(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
 
     public void update() {
         try {
@@ -101,8 +105,7 @@ public class UpdateDatabaseTables {
                       DELIMITER E'\t'
                       CSV
                       HEADER
-                      NULL '\\N'
-                      ENCODING 'UTF8';
+                      NULL '\\N';
                     """;
             System.out.println("Wrote " + cm.copyIn(sql, br) + " lines into table title_basics_temp");
             br.close();
@@ -112,8 +115,8 @@ public class UpdateDatabaseTables {
                     INSERT INTO title_basics
                     SELECT *
                     FROM title_basics_temp
-                    ON CONFLICT
-                    DO NOTHING;
+                    ON CONFLICT (tconst)
+                    DO UPDATE SET primary_title = EXCLUDED.primary_title, original_title = EXCLUDED.original_title;
                 """;
             jdbcTemplate.execute(sql);
             System.out.println("Updated table title_basics");
@@ -133,8 +136,7 @@ public class UpdateDatabaseTables {
                       DELIMITER E'\t'
                       CSV
                       HEADER
-                      NULL '\\N'
-                      ENCODING 'UTF8';
+                      NULL '\\N';
                     """;
             System.out.println("Wrote " + cm.copyIn(sql, br) + " lines into table name_basics_temp");
             br.close();
@@ -165,8 +167,7 @@ public class UpdateDatabaseTables {
                       DELIMITER E'\t'
                       CSV
                       HEADER
-                      NULL '\\N'
-                      ENCODING 'UTF8';
+                      NULL '\\N';
                     """;
             System.out.println("Wrote " + cm.copyIn(sql, br) + " lines into table title_crew_temp");
             br.close();
@@ -198,8 +199,7 @@ public class UpdateDatabaseTables {
                       DELIMITER E'\t'
                       CSV
                       HEADER
-                      NULL '\\N'
-                      ENCODING 'UTF8';
+                      NULL '\\N';
                     """;
             System.out.println("Wrote " + cm.copyIn(sql, br) + " lines into table title_principals_temp");
             br.close();
@@ -231,8 +231,7 @@ public class UpdateDatabaseTables {
                       DELIMITER E'\t'
                       CSV
                       HEADER
-                      NULL '\\N'
-                      ENCODING 'UTF8';
+                      NULL '\\N';
                     """;
             System.out.println("Wrote " + cm.copyIn(sql, br) + " lines into table title_episode_temp");
             br.close();
@@ -264,8 +263,7 @@ public class UpdateDatabaseTables {
                       DELIMITER E'\t'
                       CSV
                       HEADER
-                      NULL '\\N'
-                      ENCODING 'UTF8';
+                      NULL '\\N';
                     """;
             System.out.println("Wrote " + cm.copyIn(sql, br) + " lines into table title_akas_temp");
             br.close();
@@ -297,8 +295,7 @@ public class UpdateDatabaseTables {
                       DELIMITER E'\t'
                       CSV
                       HEADER
-                      NULL '\\N'
-                      ENCODING 'UTF8';
+                      NULL '\\N';
                     """;
             System.out.println("Wrote " + cm.copyIn(sql, br) + " lines into table title_ratings_temp");
             br.close();
@@ -310,7 +307,7 @@ public class UpdateDatabaseTables {
                     FROM title_ratings_temp
                     WHERE title_ratings_temp.tconst IN (SELECT tconst FROM title_basics)
                     ON CONFLICT (tconst)
-                    DO UPDATE SET average_rating = EXCLUDED.average_rating, num_votes = EXCLUDED.num_votes;                              
+                    DO UPDATE SET average_rating = EXCLUDED.average_rating, num_votes = EXCLUDED.num_votes;
                 """;
             jdbcTemplate.execute(sql);
             System.out.println("Updated table title_ratings");
