@@ -1,0 +1,1 @@
+CREATE INDEX title_ts_idx ON title_basics USING GIN (title_ts);
