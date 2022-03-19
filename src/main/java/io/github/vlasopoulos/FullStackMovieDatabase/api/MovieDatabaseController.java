@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "api/")
+@RequestMapping(path = "api/v1/")
 public class MovieDatabaseController {
 
     private final MovieDatabaseService movieDatabaseService;
