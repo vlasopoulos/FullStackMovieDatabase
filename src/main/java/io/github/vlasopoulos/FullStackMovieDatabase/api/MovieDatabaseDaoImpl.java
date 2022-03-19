@@ -3,6 +3,9 @@ package io.github.vlasopoulos.FullStackMovieDatabase.api;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -16,6 +19,62 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
 
     @Override
     public Optional<Title> selectMovieByTconst(String tconst) {
+        String sql = """
+                SELECT b.tconst
+                    , b.title_type
+                    , b.primary_title
+                    , b.original_title
+                    , b.is_adult
+                    , b.start_year
+                    , b.end_year
+                    , b.runtime_minutes
+                    , b.genres
+                    , c.directors
+                    , c.writers
+                    , r.average_rating
+                    , r.num_votes
+               FROM title_basics b
+                LEFT JOIN title_ratings r ON b.tconst = r.tconst
+                LEFT JOIN title_crew c on b.tconst = c.tconst
+               WHERE b.tconst = ?;
+                """;
+        return jdbcTemplate.query(sql, new TitleRowMapper(), tconst).stream().findFirst();
+    }
+
+    @Override
+    public Optional<Person> selectPersonByNconst(String nconst) {
+        String sql = """
+                SELECT * FROM name_basics
+                WHERE nconst = ?;
+                """;
+        return jdbcTemplate.query(sql, new PersonRowMapper(), nconst).stream().findFirst();
+    }
+
+    @Override
+    public List<Person> selectPersonsByNconsts(List<String> nconsts) {
+        String sqlVariable = String.join(",", Collections.nCopies(nconsts.size(),"?"));
+        String sql = String.format("SELECT * FROM name_basics WHERE nconst IN (%s)",sqlVariable);
+        return jdbcTemplate.query(sql, new PersonRowMapper(), nconsts.toArray());
+    }
+
+    @Override
+    public List<Principal> selectPrincipalsByTconst(String tconst) {
+        String sql = """
+                SELECT * FROM title_principals
+                WHERE tconst = ?
+                ORDER BY ordering
+                """;
+        return jdbcTemplate.query(sql, new PrincipalsRowMapper(), tconst);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectNamesByNconsts(List<String> nconst) {
+        String sqlVariable = String.join(",", Collections.nCopies(nconst.size(),"?"));
+        String sql = String.format("SELECT nconst, primary_name FROM name_basics WHERE nconst IN (%s)",sqlVariable);
+        return jdbcTemplate.queryForList(sql,nconst.toArray());
+    }
+
+    public Optional<Title> selectMovieByTconstV2(String tconst) {
         String sql = """
                 SELECT b.tconst
                     , b.title_type

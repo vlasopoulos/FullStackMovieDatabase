@@ -12,6 +12,24 @@ public class TitleRowMapper implements RowMapper<Title> {
 
     @Override
     public Title mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new Title(
+                rs.getString("tconst"),
+                rs.getString("title_type"),
+                rs.getString("primary_title"),
+                rs.getString("original_title"),
+                intToBoolean(rs.getInt("is_adult")),
+                rs.getInt("start_year"),
+                rs.getInt("end_year"),
+                rs.getInt("runtime_minutes"),
+                List.of((String[])rs.getArray("genres").getArray()),
+                List.of((String[])rs.getArray("directors").getArray()),
+                List.of((String[])rs.getArray("writers").getArray()),
+                rs.getFloat("average_rating"),
+                rs.getInt("num_votes")
+        );
+    }
+
+    public Title mapRowV2(ResultSet rs, int rowNum) throws SQLException {
         List<String> genres,directors,writers;
         if (rs.getArray("genres").toString().equals("{NULL}")) genres = List.of();
         else genres = List.of((String[])rs.getArray("genres").getArray());
