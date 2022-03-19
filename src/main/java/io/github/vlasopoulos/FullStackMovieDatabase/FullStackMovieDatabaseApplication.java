@@ -6,11 +6,17 @@ import io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch.IMDBDataDownlo
 import io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch.UpdateDatabaseTables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -26,11 +32,14 @@ public class FullStackMovieDatabaseApplication {
 		SpringApplication.run(FullStackMovieDatabaseApplication.class, args);
 	}
 
+
+
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() throws IOException, InterruptedException {
 //		System.out.println("Starting imdbDataDownloader");
 //		Thread imdbDataDownloaderThread = imdbDataDownloader;
 //		imdbDataDownloaderThread.start();
 //		System.out.println("Started imdbDataDownloaderThread");
+		System.out.println("TEST TEST TEST");
 	}
 }

@@ -1,4 +1,12 @@
 services:
+  moviedatabase:
+    image: vlasopoulos/fullstackmoviedatabase
+    container_name: moviedatabaserestapi
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
   postgres:
     container_name: postgresmoviedatabase
     image: postgres:14
@@ -14,18 +22,6 @@ services:
       -c max_wal_size=4GB
       -c min_wal_size=512MB
     restart: unless-stopped
-
-  moviedatabase:
-    build: .
-    ports:
-      - "8080:8080"
-    environment:
-      spring.datasource.url: "jdbc:postgresql://postgresmoviedatabase:5432/movie_database"
-      spring.datasource.username: "admin"
-      spring.datasource.password: "password"
-      spring.datasource.driver-class-name: "org.postgresql.Driver"
-
-
 
 volumes:
   postgres:
