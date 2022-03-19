@@ -1,5 +1,7 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +34,10 @@ public class MovieDatabaseService {
 
     public List<Map<String, Object>> getNames(List<String> nconsts) {
         return movieDatabaseDAO.selectNamesByNconsts(nconsts);
+    }
+
+    // search categories for now: movie tvSeries tvMiniSeries tvEpisode tvSpecial tvMovie short tvShort tvPilot videoGame video
+    public Page<TitleSearchResult> searchTitle(String searchCategory, String searchTerms, Pageable pageable) {
+        return movieDatabaseDAO.searchTitle(searchCategory, searchTerms.replace('+','|'), pageable);
     }
 }

@@ -1,5 +1,8 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -72,6 +75,25 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
         String sqlVariable = String.join(",", Collections.nCopies(nconst.size(),"?"));
         String sql = String.format("SELECT nconst, primary_name FROM name_basics WHERE nconst IN (%s)",sqlVariable);
         return jdbcTemplate.queryForList(sql,nconst.toArray());
+    }
+
+    @Override
+    public Page<TitleSearchResult> searchTitle(String searchCategory, String searchTerms, Pageable pageable) {
+        String rowCountSQL = "SELECT count(1) AS row_count " +
+                             "FROM title_basics " +
+                             "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type='" + searchCategory + "');";
+
+        int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
+
+        String sql = "SELECT title_basics.tconst, title_type, primary_title, is_adult, start_year, end_year, genres, average_rating " +
+                "FROM title_basics " +
+                "LEFT JOIN title_ratings ON title_basics.tconst = title_ratings.tconst " +
+                "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type='" + searchCategory + "') " +
+                "ORDER BY ts_rank(title_ts, to_tsquery('english','" + searchTerms + "')) DESC " +
+                "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
+        List<TitleSearchResult> searchResults = jdbcTemplate.query(sql, new TitleSearchResultRowMapper());
+
+        return new PageImpl<>(searchResults, pageable, rowCount);
     }
 
     public Optional<Title> selectMovieByTconstV2(String tconst) {
