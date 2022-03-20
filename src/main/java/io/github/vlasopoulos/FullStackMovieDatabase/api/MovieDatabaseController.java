@@ -1,12 +1,15 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Person;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(path = "api/v1/")
@@ -18,14 +21,13 @@ public class MovieDatabaseController {
         this.movieDatabaseService = movieDatabaseService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public String get() {
         return "It's alive!";
     }
 
     @GetMapping("title/{tconst}")
     public Title getTitle(@PathVariable("tconst") String tconst) {
-        System.out.println(tconst);
         if (tconst.equals("search")) return null;
         return movieDatabaseService.getTitle(tconst);
     }
@@ -45,15 +47,26 @@ public class MovieDatabaseController {
         return movieDatabaseService.getPrincipals(tconst);
     }
 
-    @GetMapping("names")
-    public List<Map<String,Object>> getNames(@RequestParam List<String> nconst){
-        return movieDatabaseService.getNames(nconst);
+    @GetMapping("person-names")
+    public List<Map<String,Object>> getPersonNames(@RequestParam List<String> nconst){
+        return movieDatabaseService.getPersonNames(nconst);
+    }
+
+    @GetMapping("title-names")
+    public List<Map<String,Object>> getTitleNames(@RequestParam List<String> tconst){
+        return movieDatabaseService.getTitleNames(tconst);
     }
 
     @GetMapping("title/search/{searchCategory}/{searchTerms}")
-    public Page<TitleSearchResult> searchTitle(@PathVariable("searchCategory") String searchCategory ,@PathVariable("searchTerms") String searchTerms, Pageable pageable) {
+    public Page<TitleSearchResult> searchTitle(@PathVariable("searchCategory") String searchCategory , @PathVariable("searchTerms") String searchTerms, Pageable pageable) {
         if (searchTerms == null) return null;
         return movieDatabaseService.searchTitle(searchCategory, searchTerms, pageable);
+    }
+
+    @GetMapping("person/search/{searchTerms}")
+    public Page<Person> searchPerson(@PathVariable("searchTerms") String searchTerms, Pageable pageable) {
+        if (searchTerms == null) return null;
+        return movieDatabaseService.searchPerson(searchTerms, pageable);
     }
 
 }

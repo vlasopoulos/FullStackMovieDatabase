@@ -1,5 +1,13 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Person;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.PersonRowMapper;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.PrincipalsRowMapper;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.TitleRowMapper;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.TitleSearchResultRowMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -71,10 +79,17 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
     }
 
     @Override
-    public List<Map<String, Object>> selectNamesByNconsts(List<String> nconst) {
-        String sqlVariable = String.join(",", Collections.nCopies(nconst.size(),"?"));
+    public List<Map<String, Object>> selectNamesByNconsts(List<String> nconsts) {
+        String sqlVariable = String.join(",", Collections.nCopies(nconsts.size(),"?"));
         String sql = String.format("SELECT nconst, primary_name FROM name_basics WHERE nconst IN (%s)",sqlVariable);
-        return jdbcTemplate.queryForList(sql,nconst.toArray());
+        return jdbcTemplate.queryForList(sql,nconsts.toArray());
+    }
+
+    @Override
+    public List<Map<String, Object>> selectTitlesByTconsts(List<String> tconsts) {
+        String sqlVariable = String.join(",", Collections.nCopies(tconsts.size(),"?"));
+        String sql = String.format("SELECT tconst, primary_title FROM title_basics WHERE tconst IN (%s)",sqlVariable);
+        return jdbcTemplate.queryForList(sql,tconsts.toArray());
     }
 
     @Override
@@ -91,7 +106,27 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
                 "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type='" + searchCategory + "') " +
                 "ORDER BY ts_rank(title_ts, to_tsquery('english','" + searchTerms + "')) DESC " +
                 "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
+
         List<TitleSearchResult> searchResults = jdbcTemplate.query(sql, new TitleSearchResultRowMapper());
+
+        return new PageImpl<>(searchResults, pageable, rowCount);
+    }
+
+    @Override
+    public Page<Person> searchPerson(String searchTerms, Pageable pageable) {
+        String rowCountSQL = "SELECT count(1) AS row_count " +
+                "FROM name_basics " +
+                "WHERE name_ts @@ to_tsquery('english','" + searchTerms + "');";
+
+        int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
+
+        String sql = "SELECT nconst, primary_name, birth_year, death_year, primary_profession, known_for_titles " +
+                "FROM name_basics " +
+                "WHERE name_ts @@ to_tsquery('english','" + searchTerms + "')" +
+                "ORDER BY ts_rank(name_ts, to_tsquery('english','" + searchTerms + "')) DESC " +
+                "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
+
+        List<Person> searchResults = jdbcTemplate.query(sql, new PersonRowMapper());
 
         return new PageImpl<>(searchResults, pageable, rowCount);
     }

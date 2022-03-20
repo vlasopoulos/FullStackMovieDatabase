@@ -1,5 +1,9 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Person;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,5 +17,7 @@ public interface MovieDatabaseDAO {
     List<Person> selectPersonsByNconsts(List<String> nconsts);
     List<Principal> selectPrincipalsByTconst(String tconst);
     List<Map<String, Object>> selectNamesByNconsts(List<String> nconst);
+    List<Map<String, Object>> selectTitlesByTconsts(List<String> tconsts);
     Page<TitleSearchResult> searchTitle(String searchCategory, String searchTerms, Pageable pageable);
+    Page<Person> searchPerson(String searchTerms, Pageable pageable);
 }
