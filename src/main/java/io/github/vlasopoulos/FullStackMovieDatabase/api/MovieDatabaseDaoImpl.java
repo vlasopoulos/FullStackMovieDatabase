@@ -104,7 +104,7 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
                 "FROM title_basics " +
                 "LEFT JOIN title_ratings ON title_basics.tconst = title_ratings.tconst " +
                 "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type='" + searchCategory + "') " +
-                "ORDER BY ts_rank(title_ts, to_tsquery('english','" + searchTerms + "')) DESC " +
+                "ORDER BY ts_rank(title_ts, to_tsquery('english','" + searchTerms.replace('&','|') + "')) DESC " +
                 "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
 
         List<TitleSearchResult> searchResults = jdbcTemplate.query(sql, new TitleSearchResultRowMapper());
@@ -123,7 +123,7 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
         String sql = "SELECT nconst, primary_name, birth_year, death_year, primary_profession, known_for_titles " +
                 "FROM name_basics " +
                 "WHERE name_ts @@ to_tsquery('english','" + searchTerms + "')" +
-                "ORDER BY ts_rank(name_ts, to_tsquery('english','" + searchTerms + "')) DESC " +
+                "ORDER BY ts_rank(name_ts, to_tsquery('english','" + searchTerms.replace('&','|') + "')) DESC " +
                 "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
 
         List<Person> searchResults = jdbcTemplate.query(sql, new PersonRowMapper());

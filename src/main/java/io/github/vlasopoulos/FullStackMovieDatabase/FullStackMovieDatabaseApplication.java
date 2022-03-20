@@ -40,6 +40,5 @@ public class FullStackMovieDatabaseApplication {
 //		Thread imdbDataDownloaderThread = imdbDataDownloader;
 //		imdbDataDownloaderThread.start();
 //		System.out.println("Started imdbDataDownloaderThread");
-		System.out.println("TEST TEST TEST");
 	}
 }

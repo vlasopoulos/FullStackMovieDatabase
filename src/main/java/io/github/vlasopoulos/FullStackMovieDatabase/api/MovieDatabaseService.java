@@ -4,6 +4,8 @@ import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Person;
 import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
 import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
 import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
+import io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch.IMDBDataDownloader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ import java.util.Map;
 
 @Service
 public class MovieDatabaseService {
+
+    @Autowired
+    IMDBDataDownloader imdbDataDownloader;
 
     private final MovieDatabaseDAO movieDatabaseDAO;
 
@@ -48,9 +53,6 @@ public class MovieDatabaseService {
     public Page<TitleSearchResult> searchTitle(String searchCategory, String searchTerms, Pageable pageable) {
         String searchCategoryProcessed;
         switch (searchCategory){
-            case "movie":
-                searchCategoryProcessed = "movie' OR title_type = 'tvMovie";
-                break;
             case "tv-series":
                 searchCategoryProcessed = "tvSeries' OR title_type = 'tvMiniSeries";
                 break;
@@ -60,10 +62,17 @@ public class MovieDatabaseService {
             default:
                 searchCategoryProcessed = searchCategory;
         }
-        return movieDatabaseDAO.searchTitle(searchCategoryProcessed, searchTerms.replace('+','|'), pageable);
+        return movieDatabaseDAO.searchTitle(searchCategoryProcessed, searchTerms.replace('+','&'), pageable);
     }
 
     public Page<Person> searchPerson(String searchTerms, Pageable pageable) {
-        return movieDatabaseDAO.searchPerson(searchTerms.replace('+','|'), pageable);
+        return movieDatabaseDAO.searchPerson(searchTerms.replace('+','&'), pageable);
+    }
+
+    public void updateDatabase(){
+        System.out.println("Starting imdbDataDownloader");
+		Thread imdbDataDownloaderThread = imdbDataDownloader;
+		imdbDataDownloaderThread.start();
+		System.out.println("Started imdbDataDownloaderThread");
     }
 }

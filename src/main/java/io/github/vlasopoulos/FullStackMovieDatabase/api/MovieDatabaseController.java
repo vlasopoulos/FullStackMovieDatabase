@@ -69,4 +69,10 @@ public class MovieDatabaseController {
         return movieDatabaseService.searchPerson(searchTerms, pageable);
     }
 
+    @PostMapping
+    public void updateDatabase(@RequestBody String postString) {
+        if (postString.equals("update-database"))
+            movieDatabaseService.updateDatabase();
+    }
+
 }
