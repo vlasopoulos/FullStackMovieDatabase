@@ -54,7 +54,6 @@ copyWebApp.dependsOn appNpmBuild
 compileJava.dependsOn copyWebApp
 
 node {
-
 	download = true
 	workDir = file("${project.projectDir}/.gradle/nodejs")
 	npmWorkDir = file("${project.projectDir}/.gradle/npm")
