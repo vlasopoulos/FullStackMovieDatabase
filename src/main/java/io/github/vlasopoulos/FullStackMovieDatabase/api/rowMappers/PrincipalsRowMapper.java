@@ -1,5 +1,6 @@
-package io.github.vlasopoulos.FullStackMovieDatabase.api;
+package io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers;
 
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

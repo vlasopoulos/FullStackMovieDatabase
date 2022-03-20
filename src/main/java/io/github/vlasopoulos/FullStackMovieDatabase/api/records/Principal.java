@@ -1,4 +1,4 @@
-package io.github.vlasopoulos.FullStackMovieDatabase.api;
+package io.github.vlasopoulos.FullStackMovieDatabase.api.records;
 
 import java.util.List;
 

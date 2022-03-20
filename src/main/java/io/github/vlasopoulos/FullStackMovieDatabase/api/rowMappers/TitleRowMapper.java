@@ -1,11 +1,10 @@
-package io.github.vlasopoulos.FullStackMovieDatabase.api;
+package io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers;
 
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 public class TitleRowMapper implements RowMapper<Title> {
