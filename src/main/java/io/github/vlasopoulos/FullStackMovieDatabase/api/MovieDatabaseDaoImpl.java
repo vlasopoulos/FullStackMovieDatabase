@@ -96,14 +96,14 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
     public Page<TitleSearchResult> searchTitle(String searchCategory, String searchTerms, Pageable pageable) {
         String rowCountSQL = "SELECT count(1) AS row_count " +
                              "FROM title_basics " +
-                             "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type='" + searchCategory + "');";
+                             "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type=" + searchCategory + ");";
 
         int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
 
         String sql = "SELECT title_basics.tconst, title_type, primary_title, is_adult, start_year, end_year, genres, average_rating " +
                 "FROM title_basics " +
                 "LEFT JOIN title_ratings ON title_basics.tconst = title_ratings.tconst " +
-                "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type='" + searchCategory + "') " +
+                "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type=" + searchCategory + ") " +
                 "ORDER BY ts_rank(title_ts, to_tsquery('english','" + searchTerms.replace('&','|') + "')) DESC " +
                 "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
 

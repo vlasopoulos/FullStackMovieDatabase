@@ -54,15 +54,18 @@ public class MovieDatabaseService {
         String searchCategoryProcessed;
         switch (searchCategory){
             case "tv-series":
-                searchCategoryProcessed = "tvSeries' OR title_type = 'tvMiniSeries";
+                searchCategoryProcessed = "'tvSeries' OR title_type = 'tvMiniSeries'";
                 break;
             case "short":
-                searchCategoryProcessed = "short' OR title_type = 'tvShort";
+                searchCategoryProcessed = "'short' OR title_type = 'tvShort'";
+                break;
+            case "any":
+                searchCategoryProcessed = "title_type";
                 break;
             default:
-                searchCategoryProcessed = searchCategory;
+                searchCategoryProcessed = "'" + searchCategory + "'";
         }
-        return movieDatabaseDAO.searchTitle(searchCategoryProcessed, searchTerms.replace('+','&'), pageable);
+        return movieDatabaseDAO.searchTitle(searchCategoryProcessed, searchTerms.replace('+','&')  , pageable);
     }
 
     public Page<Person> searchPerson(String searchTerms, Pageable pageable) {
