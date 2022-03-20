@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
+	id "com.github.node-gradle.node" version "3.2.1"
 }
 
 group = 'io.github.vlasopoulos'
@@ -28,4 +29,34 @@ tasks.named('test') {
 
 bootBuildImage{
 	imageName 'vlasopoulos/fullstackmoviedatabase'
+}
+
+
+task appNpmInstall(type: NpmTask) {
+	description = "Installs all dependencies from package.json"
+	workingDir = file("${project.projectDir}/src/main/frontend")
+	args = ["install"]
+}
+
+task appNpmBuild(type: NpmTask) {
+	description = "Builds production version of the frontend"
+	workingDir = file("${project.projectDir}/src/main/frontend")
+	args = ["run", "build"]
+}
+
+task copyWebApp(type: Copy) {
+	from 'src/main/frontend/build'
+	into 'build/resources/main/static/.'
+}
+
+appNpmBuild.dependsOn appNpmInstall
+copyWebApp.dependsOn appNpmBuild
+compileJava.dependsOn copyWebApp
+
+node {
+
+	download = true
+	workDir = file("${project.projectDir}/.gradle/nodejs")
+	npmWorkDir = file("${project.projectDir}/.gradle/npm")
+	nodeProjectDir = file("${project.projectDir}/src/main/frontend")
 }
