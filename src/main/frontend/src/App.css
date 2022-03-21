@@ -1,1 +1,28 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(149, 161, 184);
+}
 
+.navbar li {
+  display: inline-block;
+}
+
+.navbar img {
+  height: 42px;
+  width: auto;
+  padding-top: 2px;
+  padding-left: 5px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  padding-right: 15px;
+}
+
+.navbar a:hover {
+  color: white;
+}

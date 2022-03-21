@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import Search from "./Search"
+import '../App.css';
+
 type Props = {}
 
 const NavBar = (props: Props) => {
   return (
     <div className='navbar'>
-      <img src="logo.png" alt="Logo" />
+      <Link to="/"><img src="logo.png" alt="Logo" /></Link>
       <Search />
       <nav>
         <ul>
