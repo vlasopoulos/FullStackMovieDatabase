@@ -12,6 +12,7 @@ import Watchlist from "./pages/Watchlist"
 import Watched from "./pages/Watched"
 import About from "./pages/About"
 import Footer from './components/Footer';
+import SearchResults from './pages/SearchResults';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="watchlist" element={<Watchlist />} />
           <Route path="watched" element={<Watched />} />
           <Route path="about" element={<About />} />
+          <Route path="search-results" element={<SearchResults />} />
         </Routes>
       </BrowserRouter>
       <Footer />

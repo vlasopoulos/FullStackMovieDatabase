@@ -4,7 +4,7 @@ type Props = {}
 
 const Watched = (props: Props) => {
   return (
-    <div>Watched</div>
+    <div className='page'>Watched</div>
   )
 }
 

@@ -4,7 +4,7 @@ type Props = {}
 
 const Watchlist = (props: Props) => {
   return (
-    <div>Watchlist</div>
+    <div className='page'>Watchlist</div>
   )
 }
 
