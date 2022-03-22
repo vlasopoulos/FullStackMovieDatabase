@@ -1,9 +1,9 @@
 import { isContentEditable } from '@testing-library/user-event/dist/utils';
 import React from 'react'
-import { Content } from '../SearchResultsTitleInterface'
+import { TitleSearchContent } from '../Interfaces'
 
 type Props = {
-    content: Content;
+    content: TitleSearchContent;
     setPage:React.Dispatch<React.SetStateAction<string>>;
 }
 

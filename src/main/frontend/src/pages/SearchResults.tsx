@@ -33,9 +33,6 @@ const SearchResults = (props: Props) => {
         try {
           const response = await axios.get(searchURL);
           setData(response.data);
-          console.log("data set");
-          console.log(response.data);
-          
         } catch (error) {
           console.error("Error!");
         }
@@ -48,7 +45,7 @@ const SearchResults = (props: Props) => {
     // console.log(data);
     
     
-    if (loading) return <div className='page'>Loading...</div>
+    if (loading) return <div className='no-results'><p>Loading...</p></div>
 
     return (
     <div className='page'> 

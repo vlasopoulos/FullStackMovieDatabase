@@ -1,4 +1,4 @@
-export interface Content {
+export interface TitleSearchContent {
     tconst: string;
     titleType: string;
     primaryTitle: string;
@@ -30,8 +30,8 @@ export interface Sort2 {
     unsorted: boolean;
 }
 
-export interface RootObject {
-    content: Content[];
+export interface TitleSearchRootObject {
+    content: TitleSearchContent[];
     pageable: Pageable;
     last: boolean;
     totalPages: number;
@@ -43,3 +43,25 @@ export interface RootObject {
     numberOfElements: number;
     empty: boolean;
 }
+
+export interface TitleRootObject {
+    tconst: string;
+    titleType: string;
+    primaryTitle: string;
+    originalTitle: string;
+    isAdult: boolean;
+    startYear: number;
+    endYear: number;
+    runtimeMinutes: number;
+    genres: string[];
+    directors: string[];
+    writers: string[];
+    averageRating: number;
+    numVotes: number;
+}
+
+export interface NamesFromNconsts {
+    nconst: string;
+    primary_name: string;
+}
+

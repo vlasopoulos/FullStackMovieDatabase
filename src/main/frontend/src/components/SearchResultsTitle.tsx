@@ -1,9 +1,9 @@
 import React, { Component }from 'react'
-import { RootObject } from '../SearchResultsTitleInterface'
+import { TitleSearchRootObject } from '../Interfaces'
 import SingleResultTitle from './SingleResultTitle';
 
 type Props = {
-    data: RootObject;
+    data: TitleSearchRootObject;
     setPage:React.Dispatch<React.SetStateAction<string>>;
 }
 
