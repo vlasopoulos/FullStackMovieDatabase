@@ -8,6 +8,11 @@
 
 .navbar li {
   display: inline;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  padding-right: 15px;
+  cursor: pointer;
 }
 
 .navbar img {
@@ -17,14 +22,7 @@
   padding-left: 5px;
 }
 
-.navbar a {
-  text-decoration: none;
-  color: black;
-  font-size: 18px;
-  padding-right: 15px;
-}
-
-.navbar a:hover {
+.navbar li:hover {
   color: white;
 }
 

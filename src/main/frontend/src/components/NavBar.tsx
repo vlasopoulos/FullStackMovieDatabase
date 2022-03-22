@@ -3,19 +3,21 @@ import { Link } from "react-router-dom";
 import Search from "./Search"
 import '../App.css';
 
-type Props = {}
+type Props = {
+  setPage:React.Dispatch<React.SetStateAction<string>>;
+}
 
 const NavBar = (props: Props) => {
   return (
     <div className='navbar'>
-      <Link to="/"><img src="logo.png" alt="Logo" /></Link>
-      <Search />
+      <img src="logo.png" alt="Logo" onClick={(e)=>props.setPage("home")}/>
+      <Search setPage = {props.setPage}/>
       <nav>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/watchlist">Watchlist</Link></li>
-          <li><Link to="/watched">Watched</Link></li>
-          <li><Link to="/about">About</Link></li>
+          <li onClick={(e)=>props.setPage("home")}>Home</li>
+          <li onClick={(e)=>props.setPage("watchlist")}>Watchlist</li>
+          <li onClick={(e)=>props.setPage("watched")}>Watched</li>
+          <li onClick={(e)=>props.setPage("about")}>About</li>
         </ul>
       </nav>
     </div>

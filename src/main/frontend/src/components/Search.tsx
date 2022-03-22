@@ -1,18 +1,19 @@
 import React from 'react'
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-type Props = {}
+type Props = {
+  setPage:React.Dispatch<React.SetStateAction<string>>;
+}
 
 const Search = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>();
   const [searchCategory, setSearchCategory] = useState<string>("movie");
-  const navigate = useNavigate();
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     let searchTerms = searchCategory + "/" + searchTerm?.trim().replace(/ +(?= )/g,'').replaceAll(' ','+');
-    navigate("/search-results",{replace: true, state: searchTerms});
+    props.setPage("search-results" + searchTerms);
     console.log("event handled");
     
 }
@@ -23,7 +24,7 @@ const Search = (props: Props) => {
             <select name="searchCategory" onChange={(e) => setSearchCategory(e.target.value)}>
                 <option value="movie">Movie</option>
                 <option value="tv-series">TV Series</option>
-                <option value="person">Person</option>
+                <option value="person/search">Person</option>
                 <option value="short">Short</option>
                 <option value="any">Any</option>
             </select>

@@ -1,9 +1,4 @@
-import React from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
+import React, { ReactElement, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar';
@@ -14,19 +9,29 @@ import About from "./pages/About"
 import Footer from './components/Footer';
 import SearchResults from './pages/SearchResults';
 
+
+
 function App() {
+  const [page, setPage] = useState<string>("home");
+
+  let currentPage :ReactElement = <Home />;
+  if ( page == "home") {
+        currentPage = <Home />
+      } else if ( page == "watchlist") {
+        currentPage = <Watchlist />
+      } else if ( page == "watched") {
+        currentPage = <Watched />
+      } else if (page == "about") {
+        currentPage = <About />
+      } else if (page.startsWith("search-results")) {
+        currentPage = <SearchResults searchTerms = {page.substring(14)}/>
+      }
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="watchlist" element={<Watchlist />} />
-          <Route path="watched" element={<Watched />} />
-          <Route path="about" element={<About />} />
-          <Route path="search-results" element={<SearchResults />} />
-        </Routes>
-      </BrowserRouter>
+      
+      <NavBar setPage = {setPage} />
+      {currentPage}
       <Footer />
     </div>
   );
