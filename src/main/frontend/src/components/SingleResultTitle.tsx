@@ -14,7 +14,7 @@ const SingleResultTitle = (props: Props) => {
         <td>{props.content.titleType}</td>
         <td>{props.content.startYear}</td>
         <td>{props.content.endYear}</td>
-        <td>{props.content.genres.map((genre, index) => {
+        <td>{props.content.genres?.map((genre, index) => {
         return (
             <span>{genre} </span>
         );

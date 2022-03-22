@@ -35,12 +35,12 @@ const Title = (props: Props) => {
     fetchAllData();
   }, [fetchURL]);
 
-  if (loading) return <div className='no-results'><p>Loading...</p></div>
+  if (loading) return <div className='page'><div className='no-results'>Loading...</div></div>;
 
   return (
     <div className='page'>
       Title: {data?.primaryTitle} Average Rating: {data?.averageRating} Directors/Writers: 
-      {nameData.map((object,i)=>{console.log(object.primary_name);return <span>{object.primary_name}</span>;})}
+      {nameData.map((object,i)=>{return <span>{object.primary_name} </span>;})}
       </div>
   )
 }

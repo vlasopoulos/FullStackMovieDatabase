@@ -14,8 +14,6 @@ const Search = (props: Props) => {
     e.preventDefault();
     let searchTerms = searchCategory + "/" + searchTerm?.trim().replace(/ +(?= )/g,'').replaceAll(' ','+');
     props.setPage("search-results" + searchTerms);
-    console.log("event handled");
-    
 }
 
   return (
