@@ -8,6 +8,7 @@ import Watched from "./pages/Watched"
 import About from "./pages/About"
 import Footer from './components/Footer';
 import SearchResults from './pages/SearchResults';
+import Title from './pages/Title';
 
 
 
@@ -24,7 +25,9 @@ function App() {
       } else if (page == "about") {
         currentPage = <About />
       } else if (page.startsWith("search-results")) {
-        currentPage = <SearchResults searchTerms = {page.substring(14)}/>
+        currentPage = <SearchResults searchTerms = {page.substring(14)} setPage = {setPage}/>
+      } else if (page.startsWith("title")) {
+        currentPage = <Title tconst = {page.substring(5)} setPage = {setPage}/>
       }
 
   return (

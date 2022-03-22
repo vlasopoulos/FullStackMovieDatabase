@@ -12,7 +12,6 @@
   color: black;
   font-size: 18px;
   padding-right: 15px;
-  cursor: pointer;
 }
 
 .navbar img {
@@ -78,4 +77,36 @@ select {
 
 .page {
   background-color: white;
+}
+
+/* results */
+
+.result {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(192, 197, 206);
+}
+
+.page table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.page td,
+th {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  font-size: 20px;
 }

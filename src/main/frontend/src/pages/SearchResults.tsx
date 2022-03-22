@@ -1,41 +1,40 @@
-import React, { Component } from 'react'
+import React, { Component, ReactElement } from 'react'
 import { useState, useEffect } from "react";
 import axios from "axios"
+import SearchResultsTitle from '../components/SearchResultsTitle';
+import SearchResultsPerson from '../components/SearchResultsPerson';
 
 type Props = {
   searchTerms :string;
+  setPage:React.Dispatch<React.SetStateAction<string>>;
 }
-
-
 
 const SearchResults = (props: Props) => {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<Object | null>(null);
+    const [data, setData] = useState<any | null>(null);
     
     
     let apiURL: string;
+    let searchResultsList :ReactElement = <SearchResultsTitle data = {data} setPage = {props.setPage}/>;
     if(props.searchTerms.startsWith("person")){
         apiURL = "http://localhost:8080/api/v1/" ;
+        searchResultsList = <SearchResultsPerson data = {data} setPage = {props.setPage}/>
     } else {
         apiURL = "http://localhost:8080/api/v1/title/search/";
     }
     
     const searchURL: string = apiURL + props.searchTerms;
 
-    console.log(searchURL);
+    // console.log(searchURL);
     
-    // useEffect(() => {
-    //   axios.get(searchURL).then(res => {setData(res.data)});
-    // }, [searchURL]);
-    // console.log(data);
-
     useEffect(() => {
       const fetchData = async () =>{
         setLoading(true);
         try {
-          const {data: response} = await axios.get(searchURL);
-          setData(response);
+          const response = await axios.get(searchURL);
+          setData(response.data);
           console.log("data set");
+          console.log(response.data);
           
         } catch (error) {
           console.error("Error!");
@@ -44,12 +43,17 @@ const SearchResults = (props: Props) => {
       }
       fetchData();
     }, [searchURL]);
-    console.log(data);
+
+
+    // console.log(data);
+    
     
     if (loading) return <div className='page'>Loading...</div>
 
     return (
-    <div className='page'>Search Results {data?.toString} </div>
+    <div className='page'> 
+      {searchResultsList}
+    </div>
     )
 }
 
