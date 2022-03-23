@@ -18,7 +18,10 @@ public class TitleSearchResultRowMapper implements RowMapper<TitleSearchResult> 
                 rs.getInt("start_year"),
                 rs.getInt("end_year"),
                 List.of((String[])rs.getArray("genres").getArray()),
-                rs.getFloat("average_rating")
+                rs.getFloat("average_rating"),
+                rs.getInt("user_rating"),
+                rs.getString("watched") != null,
+                rs.getString("watchlist") != null
                 );
     }
 

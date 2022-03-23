@@ -24,7 +24,10 @@ public class TitleRowMapper implements RowMapper<Title> {
                 List.of((String[])rs.getArray("directors").getArray()),
                 List.of((String[])rs.getArray("writers").getArray()),
                 rs.getFloat("average_rating"),
-                rs.getInt("num_votes")
+                rs.getInt("num_votes"),
+                rs.getInt("user_rating"),
+                rs.getString("watched") != null,
+                rs.getString("watchlist") != null
         );
     }
 

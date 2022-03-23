@@ -44,8 +44,8 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
                     , c.writers
                     , r.average_rating
                     , r.num_votes
-                    , watched.tconst
-                    , watchlist.tconst
+                    , watched.tconst AS watched
+                    , watchlist.tconst AS watchlist
                     , ur.user_rating
                FROM title_basics b
                 LEFT JOIN title_ratings r ON b.tconst = r.tconst
@@ -106,7 +106,7 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
 
         int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
 
-        String sql = "SELECT title_basics.tconst, title_type, primary_title, is_adult, start_year, end_year, genres, average_rating, watched.tconst, watchlist.tconst, ur.user_rating " +
+        String sql = "SELECT title_basics.tconst, title_type, primary_title, is_adult, start_year, end_year, genres, average_rating, watched.tconst AS watched, watchlist.tconst AS watchlist, ur.user_rating " +
                 "FROM title_basics " +
                 "LEFT JOIN title_ratings ON title_basics.tconst = title_ratings.tconst " +
                 "LEFT JOIN user_watched watched  ON title_basics.tconst = watched.tconst " +

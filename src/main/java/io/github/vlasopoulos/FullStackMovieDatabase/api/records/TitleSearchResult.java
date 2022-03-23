@@ -10,6 +10,9 @@ public record TitleSearchResult(
         int startYear,
         int endYear,
         List<String> genres,
-        float averateRating
+        float averateRating,
+        int userRating,
+        boolean watched,
+        boolean watchlist
 ) {
 }

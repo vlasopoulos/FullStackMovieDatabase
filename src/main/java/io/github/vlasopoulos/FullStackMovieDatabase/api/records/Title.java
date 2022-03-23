@@ -15,7 +15,10 @@ public record Title(String tconst,
                     List<String> directors,
                     List<String> writers,
                     float averageRating,
-                    int numVotes
+                    int numVotes,
+                    int userRating,
+                    boolean watched,
+                    boolean watchlist
 //                    ,List<Map<String,List<String>>> actors, //name - characters
 //                    List<Map<String,String>> principals  //name - category
                     ) {
