@@ -113,6 +113,18 @@ th {
   text-align: left;
 }
 
+.state-button button {
+  display: block;
+  margin: auto;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-align: center;
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -129,4 +141,18 @@ th {
   text-align: center;
   font-size: 20px;
   background-color: white;
+}
+
+.user-rating {
+  display: block;
+  margin: auto;
+  padding: 0px 0px 0px 5px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-align: center;
+  width: 50px;
+  height: 26px;
 }
