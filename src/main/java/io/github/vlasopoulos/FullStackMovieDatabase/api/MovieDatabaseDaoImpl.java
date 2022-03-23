@@ -44,9 +44,15 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
                     , c.writers
                     , r.average_rating
                     , r.num_votes
+                    , watched.tconst
+                    , watchlist.tconst
+                    , ur.user_rating
                FROM title_basics b
                 LEFT JOIN title_ratings r ON b.tconst = r.tconst
                 LEFT JOIN title_crew c on b.tconst = c.tconst
+                LEFT JOIN user_watched watched ON b.tconst = watched.tconst
+                LEFT JOIN user_watchlist watchlist ON b.tconst = watchlist.tconst
+                LEFT JOIN user_ratings ur ON b.tconst = ur.tconst
                WHERE b.tconst = ?;
                 """;
         return jdbcTemplate.query(sql, new TitleRowMapper(), tconst).stream().findFirst();
@@ -100,9 +106,12 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
 
         int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
 
-        String sql = "SELECT title_basics.tconst, title_type, primary_title, is_adult, start_year, end_year, genres, average_rating " +
+        String sql = "SELECT title_basics.tconst, title_type, primary_title, is_adult, start_year, end_year, genres, average_rating, watched.tconst, watchlist.tconst, ur.user_rating " +
                 "FROM title_basics " +
                 "LEFT JOIN title_ratings ON title_basics.tconst = title_ratings.tconst " +
+                "LEFT JOIN user_watched watched  ON title_basics.tconst = watched.tconst " +
+                "LEFT JOIN user_watchlist watchlist ON title_basics.tconst = watchlist.tconst " +
+                "LEFT JOIN user_ratings ur ON title_basics.tconst = ur.tconst " +
                 "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type=" + searchCategory + ") " +
                 "ORDER BY ts_rank(title_ts, to_tsquery('english','" + searchTerms.replace('&','|') + "')) DESC " +
                 "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
