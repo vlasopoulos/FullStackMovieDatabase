@@ -7,6 +7,10 @@ export interface TitleSearchContent {
     endYear: number;
     genres: string[];
     averateRating: number;
+    userRating: number;
+    watched: boolean;
+    watchlist: boolean;
+    
 }
 
 export interface Sort {
@@ -58,6 +62,9 @@ export interface TitleRootObject {
     writers: string[];
     averageRating: number;
     numVotes: number;
+    userRating: number;
+    watched: boolean;
+    watchlist: boolean;    
 }
 
 export interface NamesFromNconsts {

@@ -16,6 +16,9 @@ const SingleResultTitle = (props: Props) => {
         <td>{(props.content.endYear === 0) ? "N/A" : props.content.endYear}</td>
         <td>{(props.content.genres?.toString() === "N" ? "N/A" : props.content.genres?.toString())}</td>
         <td>{(props.content.averateRating === 0) ? "N/A" : props.content.averateRating}</td>
+        <td>{(props.content.userRating)}</td>
+        <td>{(props.content.watched) ? "YES" : "NO"}</td>
+        <td>{(props.content.watchlist) ? "YES" : "NO"}</td>
     </tr>
   )
 }
