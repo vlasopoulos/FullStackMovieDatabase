@@ -45,10 +45,10 @@ const SearchResults = (props: Props) => {
     // console.log(data);
     
     
-    if (loading) return <div className='no-results'><p>Loading...</p></div>
+    if (loading) return <div className='no-results'><p>Loading...</p></div>;
 
     return (
-    <div className='page'> 
+    <div className='search-results-page'> 
       {searchResultsList}
     </div>
     )

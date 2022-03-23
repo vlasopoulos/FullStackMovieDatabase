@@ -9,7 +9,7 @@ type Props = {
 const Title = (props: Props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<TitleRootObject>();
-  const [nameData, setNameData] = useState<NamesFromNconsts[]>([{nconst:"asd",primary_name:"asd"}]);
+  const [nameData, setNameData] = useState<NamesFromNconsts[]>([{nconst:"",primary_name:""}]);
   
   const fetchURL: string = "http://localhost:8080/api/v1/title/" + props.tconst;
 
@@ -35,13 +35,22 @@ const Title = (props: Props) => {
     fetchAllData();
   }, [fetchURL]);
 
-  if (loading) return <div className='page'><div className='no-results'>Loading...</div></div>;
+  if (loading) return <div className='no-results'><p>Loading...</p></div>;
 
   return (
-    <div className='page'>
-      Title: {data?.primaryTitle} Average Rating: {data?.averageRating} Directors/Writers: 
-      {nameData.map((object,i)=>{return <span>{object.primary_name} </span>;})}
+    <div className='margin-page'>
+      <div className='page'>
+        <h1>{data?.primaryTitle}</h1>
+        <p>Type: {data?.titleType}</p>
+        <p>Genres: {data?.genres.toString()}</p>
+        <p>Runtime: {data?.runtimeMinutes} minutes</p>
+        {(data?.titleType === "tvSeries" || data?.titleType === "tvMiniSeries") ? <p>Start Year: {data?.startYear}</p> : <p>Release Year: {data?.startYear}</p>}
+        {(data?.titleType === "tvSeries" || data?.titleType === "tvMiniSeries") && <p>End Year: {data?.endYear}</p>}
+        <p>Average Rating: {data?.averageRating}</p>
+        <p>Number of votes: {data?.numVotes}</p>
+        <p>{nameData.map((object,i)=>{return <span>{object.primary_name} </span>;})}</p>
       </div>
+    </div>
   )
 }
 

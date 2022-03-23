@@ -18,8 +18,9 @@ const SearchResultsTitle = (props: Props) => {
           <th>Title</th>
           <th>Type</th>
           <th>Year</th>
-          <th>End Year</th>
+          <th>End<br/>Year</th>
           <th>Genres</th>
+          <th>Average<br/>Rating</th>
         </tr>
         {props.data.content.map((content, _index) => {
         return (

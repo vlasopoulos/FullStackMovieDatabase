@@ -77,6 +77,20 @@ select {
 
 .page {
   background-color: white;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.search-results-page {
+  background-color: white;
+  width: 100%;
+}
+
+.margin-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* results */
@@ -87,12 +101,12 @@ select {
   background-color: rgb(192, 197, 206);
 }
 
-.page table {
+.search-results-page table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.page td,
+.search-results-page td,
 th {
   border: 1px solid #999;
   padding: 0.5rem;
@@ -103,10 +117,16 @@ th {
   cursor: pointer;
 }
 
+.clickable-link {
+  cursor: pointer;
+  color: rgb(0, 0, 58);
+}
+
 .no-results {
   display: flex;
   justify-content: center;
   align-content: center;
   text-align: center;
   font-size: 20px;
+  background-color: white;
 }

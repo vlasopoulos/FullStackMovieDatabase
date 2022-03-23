@@ -10,15 +10,12 @@ type Props = {
 const SingleResultTitle = (props: Props) => {
   return (
     <tr className='result'>
-        <td className='clickable' onClick={(e)=>props.setPage("title" + props.content.tconst)}>{props.content.primaryTitle}</td>
+        <td className='clickable-link' onClick={(e)=>props.setPage("title" + props.content.tconst)}>{props.content.primaryTitle}</td>
         <td>{props.content.titleType}</td>
-        <td>{props.content.startYear}</td>
-        <td>{props.content.endYear}</td>
-        <td>{props.content.genres?.map((genre, index) => {
-        return (
-            <span>{genre} </span>
-        );
-        })}</td>
+        <td>{(props.content.startYear === 0) ? "N/A" : props.content.startYear}</td>
+        <td>{(props.content.endYear === 0) ? "N/A" : props.content.endYear}</td>
+        <td>{(props.content.genres?.toString() === "N" ? "N/A" : props.content.genres?.toString())}</td>
+        <td>{(props.content.averateRating === 0) ? "N/A" : props.content.averateRating}</td>
     </tr>
   )
 }
