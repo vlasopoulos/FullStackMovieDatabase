@@ -32,7 +32,7 @@ const Watchlist = (props: Props) => {
   return (
     <div className='margin-page'>
       <div className='page'>
-        <h1>Watchlist</h1>
+        <h1 className='h1-centered'>Watchlist</h1>
         {(data?.empty) ? <div className='Your watchlist is empty!'><p>No results found.</p></div> : 
       <table>
         <tr>
