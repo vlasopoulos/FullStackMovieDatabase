@@ -31,7 +31,7 @@ const UserRating = (props: Props) => {
   }
 
   return (
-    <select defaultValue={userRating} name="user-rating" className='user-rating' onChange={handleChange}>
+    <select defaultValue={userRating} name="user-rating" className='user-rating clickable' onChange={handleChange}>
         <option value="0">N/A</option>
         <option value="1">1</option>
         <option value="2">2</option>

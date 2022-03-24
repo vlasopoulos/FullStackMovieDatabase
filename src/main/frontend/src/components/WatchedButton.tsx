@@ -21,7 +21,7 @@ const [watched,setWatched] = useState<boolean>(props.watched)
   };
 
   return (
-    <button style={{ backgroundColor: watched ? 'rgb(159, 235, 159)' : 'rgb(241, 165, 165)' , width:'100px'}} onClick={handleClick}>{watched? "Watched" : "Not Watched"}</button>
+    <button className='clickable' style={{ backgroundColor: watched ? 'rgb(159, 235, 159)' : 'rgb(241, 165, 165)' , width:'100px'}} onClick={handleClick}>{watched? "Watched" : "Not Watched"}</button>
   )
 }
 

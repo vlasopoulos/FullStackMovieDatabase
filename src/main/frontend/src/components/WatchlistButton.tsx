@@ -21,7 +21,7 @@ const [watchlist,setWatchlist] = useState<boolean>(props.watchlist)
   };
 
   return (
-    <button style={{ backgroundColor: watchlist ? 'rgb(241, 206, 165)' : 'rgb(159, 235, 219)', width:'170px'}} onClick={handleClick}>{watchlist? "Remove from watchlist" : "Add to watchlist"}</button>
+    <button className='clickable' style={{ backgroundColor: watchlist ? 'rgb(241, 206, 165)' : 'rgb(159, 235, 219)', width:'170px'}} onClick={handleClick}>{watchlist? "Remove from watchlist" : "Add to watchlist"}</button>
   )
 }
 
