@@ -209,21 +209,15 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
                 SELECT count(1) AS row_count FROM user_watchlist
                 """;
         int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
-        String sql = """
-                SELECT watchlist.tconst
-                     , b.primary_title
-                     , b.title_type
-                     , r.average_rating
-                     , ur.user_rating
-                     , watched.tconst AS watched
-                FROM user_watchlist watchlist
-                         LEFT JOIN title_basics b ON watchlist.tconst = b.tconst
-                         LEFT JOIN title_ratings r ON watchlist.tconst = r.tconst
-                         LEFT JOIN user_watched watched ON watchlist.tconst = watched.tconst
-                         LEFT JOIN user_ratings ur ON watchlist.tconst = ur.tconst;
-                """;
+        String sql =
+                "SELECT watchlist.tconst, b.primary_title, b.title_type, r.average_rating, ur.user_rating, watched.tconst AS watched " +
+                "FROM user_watchlist watchlist " +
+                "    LEFT JOIN title_basics b ON watchlist.tconst = b.tconst " +
+                "    LEFT JOIN title_ratings r ON watchlist.tconst = r.tconst " +
+                "    LEFT JOIN user_watched watched ON watchlist.tconst = watched.tconst " +
+                "    LEFT JOIN user_ratings ur ON watchlist.tconst = ur.tconst "+
+                "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
         List<Watchlist> Results = jdbcTemplate.query(sql, new WatchlistRowMapper());
-
         return new PageImpl<>(Results, pageable, rowCount);
     }
 
@@ -233,19 +227,15 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
                 SELECT count(1) AS row_count FROM user_watched
                 """;
         int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
-        String sql = """
-                SELECT watched.tconst
-                     , b.primary_title
-                     , b.title_type
-                     , r.average_rating
-                     , ur.user_rating
-                     , watchlist.tconst AS watchlist
-                FROM user_watched watched
-                    LEFT JOIN title_basics b ON watched.tconst = b.tconst
-                    LEFT JOIN title_ratings r ON watched.tconst = r.tconst
-                    LEFT JOIN user_watchlist watchlist ON watched.tconst = watchlist.tconst
-                    LEFT JOIN user_ratings ur ON watched.tconst = ur.tconst;
-                """;
+        String sql =
+                "SELECT watched.tconst, b.primary_title, b.title_type, r.average_rating, ur.user_rating, watchlist.tconst AS watchlist " +
+                "FROM user_watched watched " +
+                "    LEFT JOIN title_basics b ON watched.tconst = b.tconst " +
+                "    LEFT JOIN title_ratings r ON watched.tconst = r.tconst " +
+                "    LEFT JOIN user_watchlist watchlist ON watched.tconst = watchlist.tconst " +
+                "    LEFT JOIN user_ratings ur ON watched.tconst = ur.tconst "+
+                "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
+
         List<Watched> Results = jdbcTemplate.query(sql, new WatchedRowMapper());
         return new PageImpl<>(Results, pageable, rowCount);
     }
