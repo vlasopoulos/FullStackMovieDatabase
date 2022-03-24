@@ -74,6 +74,9 @@ select {
 }
 
 /* page stuff */
+h1 {
+  text-align: center;
+}
 
 .page {
   background-color: white;
