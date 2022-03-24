@@ -171,7 +171,7 @@ th {
 }
 
 .paginationItem {
-  background: #fff;
+  background: rgb(227, 252, 230);
   border: 2px solid #666;
   padding: 10px 15px;
   border-radius: 50%;
@@ -180,6 +180,7 @@ th {
   position: relative;
   margin: 0 5px;
   cursor: pointer;
+  color: rgb(0, 0, 114);
 }
 
 .paginationItem span {
@@ -191,20 +192,38 @@ th {
 
 .prev,
 .next {
-  background: #fff;
+  background: rgb(227, 252, 230);
   border: none;
   padding: 10px;
-  color: blue;
+  color: rgb(0, 0, 114);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-  margin: 0 10px;
+  margin: 0px 2px;
   cursor: pointer;
   font-size: large;
+}
+
+.prev:hover,
+.next:hover {
+  background: rgb(200, 255, 200);
 }
 
 .paginationItem.active {
   border: 1px solid #888;
   color: #888;
   pointer-events: none;
+}
+
+.paginationItem:hover {
+  background: rgb(200, 255, 200);
+}
+
+.paginationItem.dots {
+  background: white;
+  border: none;
+  color: black;
+  pointer-events: none;
+  margin: 0px;
+  padding: 0px;
 }
 
 .prev.disabled,
