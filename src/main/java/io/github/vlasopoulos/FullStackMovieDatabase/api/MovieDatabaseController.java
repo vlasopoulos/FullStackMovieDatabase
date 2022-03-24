@@ -6,6 +6,7 @@ import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
 import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -69,10 +70,49 @@ public class MovieDatabaseController {
         return movieDatabaseService.searchPerson(searchTerms, pageable);
     }
 
+    //UPDATE DATABASE
     @PostMapping
     public void updateDatabase(@RequestBody String postString) {
         if (postString.equals("update-database"))
             movieDatabaseService.updateDatabase();
     }
 
+    // USER API
+    @PostMapping("user/watchlist")
+    public void addToWatchlist(@RequestBody TconstObject tconstObject) {
+        movieDatabaseService.addToWatchlist(tconstObject.tconst);
+    }
+
+    @PostMapping("user/watched")
+    public void addToWatched(@RequestBody TconstObject tconstObject) {
+        movieDatabaseService.addToWatched(tconstObject.tconst);
+    }
+
+    @PostMapping("user/rating")
+    public void addUserRating(@RequestBody RatingObject ratingObject) {
+        movieDatabaseService.addUserRating(ratingObject.tconst, ratingObject.rating);
+    }
+
+    @PutMapping("user/rating")
+    public void modifyUserRating(@RequestBody RatingObject ratingObject) {
+        movieDatabaseService.modifyUserRating(ratingObject.tconst, ratingObject.rating);
+    }
+
+    @DeleteMapping("user/rating/{tconst}")
+    public void removeUserRating(@PathVariable("tconst") String tconst) {
+        movieDatabaseService.removeUserRating(tconst);
+    }
+
+    @DeleteMapping("user/watchlist/{tconst}")
+    public void removeFromWatchlist(@PathVariable("tconst") String tconst){
+        movieDatabaseService.removeFromWatchlist(tconst);
+    }
+
+    @DeleteMapping("user/watched/{tconst}")
+    public void removeFromWatched(@PathVariable("tconst") String tconst){
+        movieDatabaseService.removeFromWatched(tconst);
+    }
+
+    private final record TconstObject(String tconst){}
+    private final record RatingObject(String tconst, int rating){}
 }

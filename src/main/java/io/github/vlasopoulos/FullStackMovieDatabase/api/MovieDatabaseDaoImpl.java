@@ -140,6 +140,75 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
         return new PageImpl<>(searchResults, pageable, rowCount);
     }
 
+    @Override
+    public void addToWatchlist(String tconst) {
+        String sql = """
+                 INSERT INTO user_watchlist(tconst)
+                 VALUES (?)
+                 ON CONFLICT DO NOTHING;
+                """;
+        jdbcTemplate.update(sql, tconst);
+    }
+
+    @Override
+    public void addToWatched(String tconst) {
+        String sql = """
+                 INSERT INTO user_watched(tconst)
+                 VALUES (?)
+                 ON CONFLICT DO NOTHING;
+                """;
+        jdbcTemplate.update(sql, tconst);
+
+    }
+
+    @Override
+    public void addUserRating(String tconst, int rating) {
+        String sql = """
+                 INSERT INTO user_ratings(tconst, user_rating)
+                 VALUES (?,?)
+                 ON CONFLICT(tconst)
+                 DO UPDATE SET user_rating = EXCLUDED.user_rating;
+                """;
+        jdbcTemplate.update(sql, tconst, rating);
+    }
+
+    @Override
+    public void modifyUserRating(String tconst, int rating) {
+        String sql = """
+                 UPDATE user_ratings
+                 SET user_rating = ?
+                 WHERE tconst = ?;
+                """;
+        jdbcTemplate.update(sql, rating, tconst);
+    }
+
+    @Override
+    public void removeUserRating(String tconst) {
+        String sql = """
+                 DELETE FROM user_ratings
+                 WHERE tconst = ?;
+                """;
+        jdbcTemplate.update(sql, tconst);
+    }
+
+    @Override
+    public void removeFromWatchlist(String tconst) {
+        String sql = """
+                 DELETE FROM user_watchlist
+                 WHERE tconst = ?;
+                """;
+        jdbcTemplate.update(sql, tconst);
+    }
+
+    @Override
+    public void removeFromWatched(String tconst) {
+        String sql = """
+                 DELETE FROM user_watched
+                 WHERE tconst = ?;
+                """;
+        jdbcTemplate.update(sql, tconst);
+    }
+
     public Optional<Title> selectMovieByTconstV2(String tconst) {
         String sql = """
                 SELECT b.tconst

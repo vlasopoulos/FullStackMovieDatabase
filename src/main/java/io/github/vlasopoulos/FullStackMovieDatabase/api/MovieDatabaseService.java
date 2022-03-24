@@ -78,4 +78,32 @@ public class MovieDatabaseService {
 		imdbDataDownloaderThread.start();
 		System.out.println("Started imdbDataDownloaderThread");
     }
+
+    public void addToWatchlist(String tconst) {
+        movieDatabaseDAO.addToWatchlist(tconst);
+    }
+
+    public void addToWatched(String tconst) {
+        movieDatabaseDAO.addToWatched(tconst);
+    }
+
+    public void addUserRating(String tconst, int rating) {
+        movieDatabaseDAO.addUserRating(tconst, rating);
+    }
+
+    public void modifyUserRating(String tconst, int rating) {
+        movieDatabaseDAO.modifyUserRating(tconst, rating);
+    }
+
+    public void removeUserRating(String tconst) {
+        movieDatabaseDAO.removeUserRating(tconst);
+    }
+
+    public void removeFromWatchlist(String tconst) {
+        movieDatabaseDAO.removeFromWatchlist(tconst);
+    }
+
+    public void removeFromWatched(String tconst) {
+        movieDatabaseDAO.removeFromWatched(tconst);
+    }
 }
