@@ -1,9 +1,6 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Person;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.util.Pair;
@@ -111,6 +108,16 @@ public class MovieDatabaseController {
     @DeleteMapping("user/watched/{tconst}")
     public void removeFromWatched(@PathVariable("tconst") String tconst){
         movieDatabaseService.removeFromWatched(tconst);
+    }
+
+    @GetMapping("user/watchlist")
+    public Page<Watchlist> getWatchlist(Pageable pageable) {
+        return movieDatabaseService.getWatchlist(pageable);
+    }
+
+    @GetMapping("user/watched")
+    public Page<Watched> getWatched(Pageable pageable) {
+        return movieDatabaseService.getWatched(pageable);
     }
 
     private final record TconstObject(String tconst){}

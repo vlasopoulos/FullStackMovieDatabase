@@ -1,13 +1,7 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Person;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.PersonRowMapper;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.PrincipalsRowMapper;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.TitleRowMapper;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.TitleSearchResultRowMapper;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.*;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.rowMappers.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -207,6 +201,53 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
                  WHERE tconst = ?;
                 """;
         jdbcTemplate.update(sql, tconst);
+    }
+
+    @Override
+    public Page<Watchlist> getWatchlist(Pageable pageable) {
+        String rowCountSQL = """
+                SELECT count(1) AS row_count FROM user_watchlist
+                """;
+        int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
+        String sql = """
+                SELECT watchlist.tconst
+                     , b.primary_title
+                     , b.title_type
+                     , r.average_rating
+                     , ur.user_rating
+                     , watched.tconst AS watched
+                FROM user_watchlist watchlist
+                         LEFT JOIN title_basics b ON watchlist.tconst = b.tconst
+                         LEFT JOIN title_ratings r ON watchlist.tconst = r.tconst
+                         LEFT JOIN user_watched watched ON watchlist.tconst = watched.tconst
+                         LEFT JOIN user_ratings ur ON watchlist.tconst = ur.tconst;
+                """;
+        List<Watchlist> Results = jdbcTemplate.query(sql, new WatchlistRowMapper());
+
+        return new PageImpl<>(Results, pageable, rowCount);
+    }
+
+    @Override
+    public Page<Watched> getWatched(Pageable pageable) {
+        String rowCountSQL = """
+                SELECT count(1) AS row_count FROM user_watched
+                """;
+        int rowCount = jdbcTemplate.queryForObject(rowCountSQL,(rs, rowNum) -> rs.getInt(1));
+        String sql = """
+                SELECT watched.tconst
+                     , b.primary_title
+                     , b.title_type
+                     , r.average_rating
+                     , ur.user_rating
+                     , watchlist.tconst AS watchlist
+                FROM user_watched watched
+                    LEFT JOIN title_basics b ON watched.tconst = b.tconst
+                    LEFT JOIN title_ratings r ON watched.tconst = r.tconst
+                    LEFT JOIN user_watchlist watchlist ON watched.tconst = watchlist.tconst
+                    LEFT JOIN user_ratings ur ON watched.tconst = ur.tconst;
+                """;
+        List<Watched> Results = jdbcTemplate.query(sql, new WatchedRowMapper());
+        return new PageImpl<>(Results, pageable, rowCount);
     }
 
     public Optional<Title> selectMovieByTconstV2(String tconst) {

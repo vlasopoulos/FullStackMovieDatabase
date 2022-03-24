@@ -1,9 +1,6 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Person;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,4 +24,6 @@ public interface MovieDatabaseDAO {
     void removeUserRating(String tconst);
     void removeFromWatchlist(String tconst);
     void removeFromWatched(String tconst);
+    Page<Watchlist> getWatchlist(Pageable pageable);
+    Page<Watched> getWatched(Pageable pageable);
 }

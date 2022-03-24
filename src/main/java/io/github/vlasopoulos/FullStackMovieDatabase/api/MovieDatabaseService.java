@@ -1,9 +1,6 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.api;
 
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Person;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Principal;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.Title;
-import io.github.vlasopoulos.FullStackMovieDatabase.api.records.TitleSearchResult;
+import io.github.vlasopoulos.FullStackMovieDatabase.api.records.*;
 import io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch.IMDBDataDownloader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -105,5 +102,13 @@ public class MovieDatabaseService {
 
     public void removeFromWatched(String tconst) {
         movieDatabaseDAO.removeFromWatched(tconst);
+    }
+
+    public Page<Watchlist> getWatchlist(Pageable pageable) {
+        return movieDatabaseDAO.getWatchlist(pageable);
+    }
+
+    public Page<Watched> getWatched(Pageable pageable) {
+        return movieDatabaseDAO.getWatched(pageable);
     }
 }
