@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 
 type Props = {
@@ -6,10 +7,17 @@ type Props = {
 }
 
 const WatchedButton = (props: Props) => {
-  const [watched,setWatched] = useState<boolean>(props.watched)
+const [watched,setWatched] = useState<boolean>(props.watched)
 
   const handleClick = () => {
     setWatched(!watched);
+    
+    if (!watched) {
+      const body = { tconst : props.tconst };
+      axios.post("http://localhost:8080/api/v1/user/watched",body);
+    } else {
+      axios.delete("http://localhost:8080/api/v1/user/watched/" + props.tconst);
+    }
   };
 
   return (

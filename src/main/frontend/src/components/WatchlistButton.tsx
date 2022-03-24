@@ -1,8 +1,9 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 
 type Props = {
-    tconst: string
-    watchlist: boolean
+  tconst: string
+  watchlist: boolean
 }
 
 const WatchlistButton = (props: Props) => {
@@ -10,6 +11,13 @@ const [watchlist,setWatchlist] = useState<boolean>(props.watchlist)
 
   const handleClick = () => {
     setWatchlist(!watchlist);
+
+    if (!watchlist) {
+      const body = { tconst : props.tconst };
+      axios.post("http://localhost:8080/api/v1/user/watchlist",body);
+    } else {
+      axios.delete("http://localhost:8080/api/v1/user/watchlist/" + props.tconst);
+    }
   };
 
   return (
