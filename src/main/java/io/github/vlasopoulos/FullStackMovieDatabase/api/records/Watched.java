@@ -6,6 +6,6 @@ public record Watched(
         String titleType,
         float averageRating,
         int userRating,
-        boolean watched
+        boolean watchlist
 ) {
 }

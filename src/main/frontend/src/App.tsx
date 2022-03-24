@@ -19,9 +19,9 @@ function App() {
   if ( page == "home") {
         currentPage = <Home />
       } else if ( page == "watchlist") {
-        currentPage = <Watchlist />
+        currentPage = <Watchlist setPage = {setPage}/>
       } else if ( page == "watched") {
-        currentPage = <Watched />
+        currentPage = <Watched setPage = {setPage}/>
       } else if (page == "about") {
         currentPage = <About />
       } else if (page.startsWith("search-results")) {

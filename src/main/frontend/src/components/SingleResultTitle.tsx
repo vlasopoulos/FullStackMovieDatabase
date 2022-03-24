@@ -18,7 +18,7 @@ const SingleResultTitle = (props: Props) => {
         <td>{(props.content.startYear === 0) ? "N/A" : props.content.startYear}</td>
         <td>{(props.content.endYear === 0) ? "N/A" : props.content.endYear}</td>
         <td>{(props.content.genres?.toString() === "N" ? "N/A" : props.content.genres?.toString().replaceAll(",",", "))}</td>
-        <td>{(props.content.averateRating === 0) ? "N/A" : props.content.averateRating}</td>
+        <td>{(props.content.averageRating === 0) ? "N/A" : props.content.averageRating}</td>
         <td><UserRating tconst = {props.content.tconst} userRating = {props.content.userRating}/></td>
         <td className='state-button'><WatchedButton tconst = {props.content.tconst} watched = {props.content.watched}/></td>
         <td className='state-button'><WatchlistButton tconst = {props.content.tconst} watchlist = {props.content.watchlist}/></td>

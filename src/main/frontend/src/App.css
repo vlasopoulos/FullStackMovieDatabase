@@ -101,12 +101,12 @@ select {
   background-color: rgb(192, 197, 206);
 }
 
-.search-results-page table {
+table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.search-results-page td,
+td,
 th {
   border: 1px solid #999;
   padding: 0.5rem;

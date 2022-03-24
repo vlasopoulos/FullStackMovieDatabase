@@ -6,11 +6,29 @@ export interface TitleSearchContent {
     startYear: number;
     endYear: number;
     genres: string[];
-    averateRating: number;
+    averageRating: number;
     userRating: number;
     watched: boolean;
     watchlist: boolean;
     
+}
+
+export interface WatchedContent {
+    tconst: string;
+    primaryTitle: string;
+    titleType: string;
+    averageRating: number;
+    userRating: number;
+    watchlist: boolean;
+}
+
+export interface WatchlistContent {
+    tconst: string;
+    primaryTitle: string;
+    titleType: string;
+    averageRating: number;
+    userRating: number;
+    watched: boolean;
 }
 
 export interface Sort {
@@ -48,6 +66,34 @@ export interface TitleSearchRootObject {
     empty: boolean;
 }
 
+export interface WatchedRootObject {
+    content: WatchedContent[];
+    pageable: Pageable;
+    last: boolean;
+    totalPages: number;
+    totalElements: number;
+    size: number;
+    number: number;
+    sort: Sort2;
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
+}
+
+export interface WatchlistRootObject {
+    content: WatchlistContent[];
+    pageable: Pageable;
+    last: boolean;
+    totalPages: number;
+    totalElements: number;
+    size: number;
+    number: number;
+    sort: Sort2;
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
+}
+
 export interface TitleRootObject {
     tconst: string;
     titleType: string;
@@ -64,7 +110,7 @@ export interface TitleRootObject {
     numVotes: number;
     userRating: number;
     watched: boolean;
-    watchlist: boolean;    
+    watchlist: boolean;
 }
 
 export interface NamesFromNconsts {

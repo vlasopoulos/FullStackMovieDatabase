@@ -1,10 +1,53 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import SingleWatchedTitle from '../components/SingleWatchedTitle';
+import { WatchedRootObject } from '../Interfaces';
 
-type Props = {}
+type Props = {
+  setPage:React.Dispatch<React.SetStateAction<string>>;
+}
 
 const Watched = (props: Props) => {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<WatchedRootObject | null>(null);
+
+  useEffect(() => {
+      const fetchData = async () =>{
+        setLoading(true);
+        try {
+          const response = await axios.get("http://localhost:8080/api/v1/user/watched");
+          setData(response.data);
+        } catch (error) {
+          console.error("Error!");
+        }
+        setLoading(false);
+      }
+      fetchData();
+    }, []);
+
+  if (loading) return <div className='no-results'><p>Loading...</p></div>;
+
   return (
-    <div className='page'>Watched</div>
+    <div className='margin-page'>
+      <div className='page'>
+        {(data?.empty) ? <div className='no-results'><p>No results found.</p></div> : 
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Average<br/>Rating</th>
+          <th>Your<br/>Rating</th>
+          <th>Watched</th>
+          <th>Watchlist</th>
+        </tr>
+        {data?.content.map((content, _index) => {
+        return (
+          <SingleWatchedTitle content = {content} setPage = {props.setPage}/>
+        );
+        })}
+      </table>}
+      </div>
+    </div>
   )
 }
 
