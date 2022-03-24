@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import Pagination from '../components/Pagination';
 import SingleWatchlistTitle from '../components/SingleWatchlistTitle';
 import { WatchlistRootObject } from '../Interfaces';
 
 type Props = {
-  setPage:React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
+  page: string;
 }
 
 const Watchlist = (props: Props) => {
@@ -47,6 +49,7 @@ const Watchlist = (props: Props) => {
         );
         })}
       </table>}
+      <Pagination totalPages = {data!.totalPages} currentPage = {data!.number + 1} setPage = {props.setPage} page = {props.page}/>
       </div>
     </div>
   )

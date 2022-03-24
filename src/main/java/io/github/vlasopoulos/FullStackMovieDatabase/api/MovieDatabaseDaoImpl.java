@@ -107,7 +107,7 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
                 "LEFT JOIN user_watchlist watchlist ON title_basics.tconst = watchlist.tconst " +
                 "LEFT JOIN user_ratings ur ON title_basics.tconst = ur.tconst " +
                 "WHERE title_ts @@ to_tsquery('english','" + searchTerms + "') AND (title_type=" + searchCategory + ") " +
-                "ORDER BY ts_rank(title_ts, to_tsquery('english','" + searchTerms.replace('&','|') + "')) DESC " +
+                "ORDER BY ts_rank(title_ts, to_tsquery('english','" + searchTerms.replace('&','|') + "')) DESC, title_basics.tconst " +
                 "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
 
         List<TitleSearchResult> searchResults = jdbcTemplate.query(sql, new TitleSearchResultRowMapper());
@@ -126,7 +126,7 @@ public class MovieDatabaseDaoImpl implements MovieDatabaseDAO {
         String sql = "SELECT nconst, primary_name, birth_year, death_year, primary_profession, known_for_titles " +
                 "FROM name_basics " +
                 "WHERE name_ts @@ to_tsquery('english','" + searchTerms + "')" +
-                "ORDER BY ts_rank(name_ts, to_tsquery('english','" + searchTerms.replace('&','|') + "')) DESC " +
+                "ORDER BY ts_rank(name_ts, to_tsquery('english','" + searchTerms.replace('&','|') + "')) DESC, name_basics.nconst " +
                 "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset() + ";";
 
         List<Person> searchResults = jdbcTemplate.query(sql, new PersonRowMapper());

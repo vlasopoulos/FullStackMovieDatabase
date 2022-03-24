@@ -1,15 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import Pagination from '../components/Pagination';
 import SingleWatchedTitle from '../components/SingleWatchedTitle';
 import { WatchedRootObject } from '../Interfaces';
 
 type Props = {
-  setPage:React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
+  page: string;
 }
 
 const Watched = (props: Props) => {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<WatchedRootObject | null>(null);
+  const [data, setData] = useState<WatchedRootObject>();
 
   useEffect(() => {
       const fetchData = async () =>{
@@ -47,6 +49,7 @@ const Watched = (props: Props) => {
         );
         })}
       </table>}
+      <Pagination totalPages = {data!.totalPages} currentPage = {data!.number + 1} setPage = {props.setPage} page = {props.page}/>
       </div>
     </div>
   )

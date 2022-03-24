@@ -5,8 +5,9 @@ import SearchResultsTitle from '../components/SearchResultsTitle';
 import SearchResultsPerson from '../components/SearchResultsPerson';
 
 type Props = {
-  searchTerms :string;
-  setPage:React.Dispatch<React.SetStateAction<string>>;
+  searchTerms: string;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
+  page: string;
 }
 
 const SearchResults = (props: Props) => {
@@ -15,10 +16,10 @@ const SearchResults = (props: Props) => {
     
     
     let apiURL: string;
-    let searchResultsList :ReactElement = <SearchResultsTitle data = {data} setPage = {props.setPage}/>;
+    let searchResultsList :ReactElement = <SearchResultsTitle data = {data} setPage = {props.setPage} page={props.page}/>;
     if(props.searchTerms.startsWith("person")){
         apiURL = "http://localhost:8080/api/v1/" ;
-        searchResultsList = <SearchResultsPerson data = {data} setPage = {props.setPage}/>
+        searchResultsList = <SearchResultsPerson data = {data} setPage = {props.setPage} page={props.page}/>
     } else {
         apiURL = "http://localhost:8080/api/v1/title/search/";
     }

@@ -17,18 +17,18 @@ function App() {
 
   let currentPage :ReactElement = <Home />;
   if ( page == "home") {
-        currentPage = <Home />
-      } else if ( page == "watchlist") {
-        currentPage = <Watchlist setPage = {setPage}/>
-      } else if ( page == "watched") {
-        currentPage = <Watched setPage = {setPage}/>
-      } else if (page == "about") {
-        currentPage = <About />
-      } else if (page.startsWith("search-results")) {
-        currentPage = <SearchResults searchTerms = {page.substring(14)} setPage = {setPage}/>
-      } else if (page.startsWith("title")) {
-        currentPage = <Title tconst = {page.substring(5)} setPage = {setPage}/>
-      }
+    currentPage = <Home />
+  } else if ( page == "watchlist") {
+    currentPage = <Watchlist setPage = {setPage} page={page}/>
+  } else if ( page == "watched") {
+    currentPage = <Watched setPage = {setPage} page={page}/>
+  } else if (page == "about") {
+    currentPage = <About />
+  } else if (page.startsWith("search-results")) {
+    currentPage = <SearchResults searchTerms = {page.substring(14)} setPage = {setPage} page={page}/>
+  } else if (page.startsWith("title")) {
+    currentPage = <Title tconst = {page.substring(5)} setPage = {setPage}/>
+  }  
 
   return (
     <div className="App">

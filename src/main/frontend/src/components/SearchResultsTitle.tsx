@@ -1,10 +1,12 @@
 import React, { Component }from 'react'
 import { TitleSearchRootObject } from '../Interfaces'
+import Pagination from './Pagination';
 import SingleResultTitle from './SingleResultTitle';
 
 type Props = {
     data: TitleSearchRootObject;
-    setPage:React.Dispatch<React.SetStateAction<string>>;
+    setPage: React.Dispatch<React.SetStateAction<string>>;
+    page: string;
 }
 
 const SearchResultsTitle = (props: Props) => {
@@ -31,6 +33,7 @@ const SearchResultsTitle = (props: Props) => {
         })}
       </table>
       }
+      <Pagination totalPages = {props.data.totalPages} currentPage = {props.data.number + 1} setPage = {props.setPage} page = {props.page}/>
     </div>
   )
 }
