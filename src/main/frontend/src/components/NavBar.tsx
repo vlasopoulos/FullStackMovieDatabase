@@ -3,7 +3,7 @@ import Search from "./Search"
 import '../App.css';
 
 type Props = {
-  setPage:React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const NavBar = (props: Props) => {

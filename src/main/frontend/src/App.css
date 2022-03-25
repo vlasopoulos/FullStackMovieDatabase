@@ -120,6 +120,39 @@ select {
   align-items: center;
 }
 
+.user-buttons {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.user-buttons button {
+  display: block;
+  margin-right: 5px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-align: center;
+}
+
+.user-buttons .user-rating {
+  display: block;
+  margin-left: 5px;
+  padding: 0px 0px 0px 5px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-align: center;
+  width: 50px;
+  height: 26px;
+  background-color: rgb(228, 228, 192);
+}
+
 /* results */
 
 .result {

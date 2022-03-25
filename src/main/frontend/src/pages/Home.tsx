@@ -24,8 +24,8 @@ const Home = (props: Props) => {
           Frontend listens at /<br />Backend listens at /api/v1/</p>
           <p>The frontend is written in React using Typescript.</p>
           <p>The data comes from the publicly available <a href='https://www.imdb.com/interfaces/'>IMDB datasets</a> that, according
-          to IMDB, are daily updated. The app downloads the .gz files, extracts them, processes 
-          them to remove errors and upserts them into the database.</p>
+          to IMDB, are daily updated. The ETL process is: the app downloads the .gz files, extracts them, transforms 
+          and cleans them (removing errors) and upserts them into the database.</p>
           <p>The user can search titles and persons, add titles to watched/watchlist and rate them.</p>
           <p>Searching is implemented using the <code>tsvector</code> and <code>tsquery</code> capabilities
           of Postgres.</p>

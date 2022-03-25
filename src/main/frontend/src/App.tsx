@@ -9,8 +9,7 @@ import About from "./pages/About"
 import Footer from './components/Footer';
 import SearchResults from './pages/SearchResults';
 import Title from './pages/Title';
-
-
+import Person from './pages/Person';
 
 function App() {
   const [page, setPage] = useState<string>("home");
@@ -28,8 +27,10 @@ function App() {
     currentPage = <SearchResults searchTerms = {page.substring(14)} setPage = {setPage} page={page}/>
   } else if (page.startsWith("title")) {
     currentPage = <Title tconst = {page.substring(5)} setPage = {setPage}/>
-  }  
-
+  }  else if (page.startsWith("person")) {
+    currentPage = <Person nconst = {page.substring(6)} setPage = {setPage}/>
+  }
+  
   return (
     <div className="App">
       

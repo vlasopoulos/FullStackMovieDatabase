@@ -113,8 +113,22 @@ export interface TitleRootObject {
     watchlist: boolean;
 }
 
+export interface PersonRootObject {
+    nconst: string;
+    primaryName: string;
+    birthYear: number;
+    deathYear: number;
+    primaryProfession: string[];
+    knownForTitles: string[];
+}
+
 export interface NamesFromNconsts {
     nconst: string;
     primary_name: string;
+}
+
+export interface NamesFromTconsts {
+    tconst: string;
+    primary_title: string;
 }
 
