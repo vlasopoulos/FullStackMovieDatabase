@@ -78,6 +78,21 @@ select {
   text-align: center;
 }
 
+.p-centered {
+  text-align: center;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.image-container img {
+  height: 150px;
+  width: auto;
+}
+
 .page {
   background-color: white;
   width: 100%;
