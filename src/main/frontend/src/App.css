@@ -93,6 +93,15 @@ select {
   width: auto;
 }
 
+.text-container {
+  width: 60%;
+  margin: auto;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: justify;
+}
+
 .page {
   background-color: white;
   width: 100%;
