@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import NameFromNconst from '../components/NameFromNconst';
+import Principals from '../components/Principals';
 import UserRating from '../components/UserRating';
 import WatchedButton from '../components/WatchedButton';
 import WatchlistButton from '../components/WatchlistButton';
@@ -63,6 +64,8 @@ const Title = (props: Props) => {
         <ul>{data?.directors.map((nconst)=>{return <li><NameFromNconst nconst = {nconst} nameData = {nameData} setPage = {props.setPage}/></li>;})}</ul>
         <p>Writers:</p>
         <ul>{data?.writers.map((nconst)=>{return <li><NameFromNconst nconst = {nconst} nameData = {nameData} setPage = {props.setPage}/></li>;})}</ul>
+        <p>Principals:</p>
+        <Principals tconst = {data!.tconst} setPage = {props.setPage}/>
       </div>
     </div>
   )

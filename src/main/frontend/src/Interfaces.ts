@@ -122,6 +122,15 @@ export interface PersonRootObject {
     knownForTitles: string[];
 }
 
+export interface PrincipalsRootObject {
+    tconst: string;
+    ordering: number;
+    nconst: string;
+    category: string;
+    job: string;
+    characters: string[];
+}
+
 export interface NamesFromNconsts {
     nconst: string;
     primary_name: string;
