@@ -1,8 +1,31 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
 type Props = {}
 
 const About = (props: Props) => {
+  const [canUpdate, setCanUpdate] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
+  
+  useEffect(() => {
+      const fetchData = async () =>{
+        setLoading(true);
+        try {
+          const response = await axios.get("http://localhost:8080/api/v1/update");
+          setCanUpdate(response.data);
+        } catch (error) {
+          console.error("Error!");
+        }
+        setLoading(false);
+      }
+      fetchData();
+    }, []);
+
+  const update = () => {
+    const response = axios.post("http://localhost:8080/api/v1/", "update-database", {headers: {'Content-Type': 'text/plain'}});
+    setCanUpdate(false);
+  };
+
   return (
     <div className='margin-page'>
       <div className='page'>
@@ -19,6 +42,7 @@ const About = (props: Props) => {
           <li><a href="https://github.com/F3V3R">Github profile</a></li>
           <li><a href="mailto:vlasopoulos.v@gmail.com">e-mail: vlasopoulos.v@gmail.com</a></li>
         </ul>
+        {canUpdate? <button onClick={update}>Update Database</button> : <button disabled={true}>Database currently updating</button>}
       </div>
     </div>
   )
