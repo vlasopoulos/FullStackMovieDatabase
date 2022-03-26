@@ -1,13 +1,11 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch;
 
 
+import io.github.vlasopoulos.FullStackMovieDatabase.api.MovieDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;

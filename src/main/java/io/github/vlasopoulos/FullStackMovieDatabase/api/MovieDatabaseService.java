@@ -12,6 +12,8 @@ import java.util.Map;
 
 @Service
 public class MovieDatabaseService {
+    private boolean canUpdate = true;
+    private Thread imdbDataDownloaderThread;
 
     @Autowired
     IMDBDataDownloader imdbDataDownloader;
@@ -70,8 +72,9 @@ public class MovieDatabaseService {
     }
 
     public void updateDatabase(){
+        setCanUpdate(false);
         System.out.println("Starting imdbDataDownloader");
-		Thread imdbDataDownloaderThread = imdbDataDownloader;
+		imdbDataDownloaderThread = imdbDataDownloader;
 		imdbDataDownloaderThread.start();
 		System.out.println("Started imdbDataDownloaderThread");
     }
@@ -110,5 +113,18 @@ public class MovieDatabaseService {
 
     public Page<Watched> getWatched(Pageable pageable) {
         return movieDatabaseDAO.getWatched(pageable);
+    }
+
+    public boolean getCanUpdate() {
+        if(imdbDataDownloaderThread == null || imdbDataDownloaderThread.getState()==Thread.State.TERMINATED || imdbDataDownloaderThread.getState()==Thread.State.NEW) {
+            setCanUpdate(true);
+        } else {
+            setCanUpdate(false);
+        }
+        return canUpdate;
+    }
+
+    public void setCanUpdate(boolean canUpdate) {
+        this.canUpdate = canUpdate;
     }
 }

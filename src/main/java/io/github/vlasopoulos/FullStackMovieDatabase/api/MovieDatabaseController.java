@@ -70,8 +70,14 @@ public class MovieDatabaseController {
     //UPDATE DATABASE
     @PostMapping
     public void updateDatabase(@RequestBody String postString) {
+        System.out.println(postString);
         if (postString.equals("update-database"))
             movieDatabaseService.updateDatabase();
+    }
+
+    @GetMapping("update")
+    public boolean canUpdateDatabase() {
+        return movieDatabaseService.getCanUpdate();
     }
 
     // USER API

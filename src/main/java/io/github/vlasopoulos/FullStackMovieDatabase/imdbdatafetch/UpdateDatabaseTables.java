@@ -1,5 +1,6 @@
 package io.github.vlasopoulos.FullStackMovieDatabase.imdbdatafetch;
 
+import io.github.vlasopoulos.FullStackMovieDatabase.api.MovieDatabaseService;
 import org.postgresql.PGConnection;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
