@@ -1,6 +1,6 @@
 services:
   moviedatabase:
-    image: vlasopoulos/fullstackmoviedatabase
+    image: vlasopoulos/fullstackmoviedatabase:latest
     container_name: moviedatabaserestapi
     ports:
       - "8080:8080"
