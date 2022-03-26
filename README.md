@@ -10,6 +10,8 @@ to
 
 `spring.datasource.jdbc-url=jdbc:postgresql://localhost:5432/movie_database`
 
+To download/update the data click the `Update database` button in the About page.
+
 ---
 The backend is written in Java using the Spring Boot framework and connects to the Postgres database using JDBCTemplate. It's containerized in docker with docker-compose using the postgres image for the database and a custom image that runs the app.
 
