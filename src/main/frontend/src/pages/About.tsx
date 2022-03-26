@@ -9,8 +9,8 @@ const About = (props: Props) => {
         <p>Project:</p>
         <ul>
           <li><a href="https://github.com/F3V3R/FullStackMovieDatabase">Project Github repository</a></li>
-          <li><a href="">Docker hub image</a></li>
-          <li><a href="https://f3v3r.github.io/full-stack-movie-database-blog/">Project page</a></li>
+          <li><a href="https://hub.docker.com/r/vlasopoulos/fullstackmoviedatabase">Docker hub image</a></li>
+          <li><a href="https://f3v3r.github.io/full-stack-movie-database/">Project page</a></li>
           <li><a href="https://f3v3r.github.io/full-stack-movie-database-blog/">Project blog post</a></li>
         </ul>
         <p>Vasilis Vlasopoulos:</p>
