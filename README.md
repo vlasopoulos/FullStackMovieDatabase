@@ -26,3 +26,7 @@ The data comes from the publicly available [IMDB datasets](https://www.imdb.com/
 The user can search titles and persons, add titles to watched/watchlist and rate them.
 
 Searching is implemented using the tsvector and tsquery capabilities of Postgres.
+
+Movie Database Schema:
+
+![moviedatabaseschema](https://user-images.githubusercontent.com/1096466/163096962-7c08a620-768f-47ce-84f0-99bbe0515474.png)
