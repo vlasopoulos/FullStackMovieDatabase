@@ -31,15 +31,15 @@ const About = (props: Props) => {
       <div className='page'>
         <p>Project:</p>
         <ul>
-          <li><a href="https://github.com/F3V3R/FullStackMovieDatabase">Project Github repository</a></li>
+          <li><a href="https://github.com/vlasopoulos/FullStackMovieDatabase">Project Github repository</a></li>
           <li><a href="https://hub.docker.com/r/vlasopoulos/fullstackmoviedatabase">Docker hub image</a></li>
-          <li><a href="https://f3v3r.github.io/full-stack-movie-database/">Project page</a></li>
-          <li><a href="https://f3v3r.github.io/full-stack-movie-database-blog/">Project blog post</a></li>
+          <li><a href="https://vlasopoulos.github.io/full-stack-movie-database/">Project page</a></li>
+          <li><a href="https://vlasopoulos.github.io/full-stack-movie-database-blog/">Project blog post</a></li>
         </ul>
         <p>Vasilis Vlasopoulos:</p>
         <ul>
-          <li><a href="https://f3v3r.github.io">Page</a></li>
-          <li><a href="https://github.com/F3V3R">Github profile</a></li>
+          <li><a href="https://vlasopoulos.github.io">Page</a></li>
+          <li><a href="https://github.com/vlasopoulos">Github profile</a></li>
           <li><a href="mailto:vlasopoulos.v@gmail.com">e-mail: vlasopoulos.v@gmail.com</a></li>
         </ul>
         {canUpdate? <button onClick={update}>Update Database</button> : <button disabled={true}>Database currently updating</button>}
