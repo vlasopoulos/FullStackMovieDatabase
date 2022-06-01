@@ -50,21 +50,13 @@ public class MovieDatabaseService {
 
     // search categories for now: movie tvSeries tvMiniSeries tvEpisode tvSpecial tvMovie short tvShort tvPilot videoGame video
     public Page<TitleSearchResult> searchTitle(String searchCategory, String searchTerms, Pageable pageable) {
-        String searchCategoryProcessed;
-        switch (searchCategory){
-            case "tv-series":
-                searchCategoryProcessed = "'tvSeries' OR title_type = 'tvMiniSeries'";
-                break;
-            case "short":
-                searchCategoryProcessed = "'short' OR title_type = 'tvShort'";
-                break;
-            case "any":
-                searchCategoryProcessed = "title_type";
-                break;
-            default:
-                searchCategoryProcessed = "'" + searchCategory + "'";
-        }
-        return movieDatabaseDAO.searchTitle(searchCategoryProcessed, searchTerms.replace('+','&')  , pageable);
+        String searchCategoryProcessed = switch (searchCategory) {
+            case "tv-series" -> "'tvSeries' OR title_type = 'tvMiniSeries'";
+            case "short" -> "'short' OR title_type = 'tvShort'";
+            case "any" -> "title_type";
+            default -> "'" + searchCategory + "'";
+        };
+        return movieDatabaseDAO.searchTitle(searchCategoryProcessed, searchTerms.replace('+','&'), pageable);
     }
 
     public Page<Person> searchPerson(String searchTerms, Pageable pageable) {
