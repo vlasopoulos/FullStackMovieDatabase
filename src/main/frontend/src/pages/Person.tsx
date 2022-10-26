@@ -13,7 +13,7 @@ const Person = (props: Props) => {
   const [data, setData] = useState<PersonRootObject>();
   const [nameData, setNameData] = useState<NamesFromTconsts[]>([{tconst:"",primary_title:""}]);
   
-  const fetchURL: string = "http://localhost:8080/api/v1/person/" + props.nconst;
+  const fetchURL: string = "http://vlasopoulos.ddns.net:8080/api/v1/person/" + props.nconst;
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -22,7 +22,7 @@ const Person = (props: Props) => {
         const fetchData = await axios.get(fetchURL);
         const localData: PersonRootObject = fetchData.data;
         setData(localData);
-        let fetchNamesURL: string = "http://localhost:8080/api/v1/title-names?";
+        let fetchNamesURL: string = "http://vlasopoulos.ddns.net:8080/api/v1/title-names?";
         localData.knownForTitles.forEach(element => fetchNamesURL += "tconst=" + element + "&");
         
         const fetchNameData = await axios.get(fetchNamesURL.slice(0,-1));

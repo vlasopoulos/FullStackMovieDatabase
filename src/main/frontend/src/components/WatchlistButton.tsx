@@ -14,9 +14,9 @@ const [watchlist,setWatchlist] = useState<boolean>(props.watchlist)
 
     if (!watchlist) {
       const body = { tconst : props.tconst };
-      axios.post("http://localhost:8080/api/v1/user/watchlist",body);
+      axios.post("http://vlasopoulos.ddns.net:8080/api/v1/user/watchlist",body);
     } else {
-      axios.delete("http://localhost:8080/api/v1/user/watchlist/" + props.tconst);
+      axios.delete("http://vlasopoulos.ddns.net:8080/api/v1/user/watchlist/" + props.tconst);
     }
   };
 

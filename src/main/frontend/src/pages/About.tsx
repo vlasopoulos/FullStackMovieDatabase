@@ -11,7 +11,7 @@ const About = (props: Props) => {
       const fetchData = async () =>{
         setLoading(true);
         try {
-          const response = await axios.get("http://localhost:8080/api/v1/update");
+          const response = await axios.get("http://vlasopoulos.ddns.net:8080/api/v1/update");
           setCanUpdate(response.data);
         } catch (error) {
           console.error("Error!");
@@ -22,7 +22,7 @@ const About = (props: Props) => {
     }, []);
 
   const update = () => {
-    const response = axios.post("http://localhost:8080/api/v1/", "update-database", {headers: {'Content-Type': 'text/plain'}});
+    const response = axios.post("http://vlasopoulos.ddns.net:8080/api/v1/", "update-database", {headers: {'Content-Type': 'text/plain'}});
     setCanUpdate(false);
   };
 

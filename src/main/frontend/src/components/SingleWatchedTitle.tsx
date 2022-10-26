@@ -14,7 +14,7 @@ const SingleWatchedTitle = (props: Props) => {
 
   const handleClick = () => {
     setWatched(!watched);
-    axios.delete("http://localhost:8080/api/v1/user/watched/" + props.content.tconst);
+    axios.delete("http://vlasopoulos.ddns.net:8080/api/v1/user/watched/" + props.content.tconst);
   };
 
   return (

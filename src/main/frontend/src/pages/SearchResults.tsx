@@ -18,10 +18,10 @@ const SearchResults = (props: Props) => {
     let apiURL: string;
     let searchResultsList :ReactElement = <SearchResultsTitle data = {data} setPage = {props.setPage} page={props.page}/>;
     if(props.searchTerms.startsWith("person")){
-        apiURL = "http://localhost:8080/api/v1/" ;
+        apiURL = "http://vlasopoulos.ddns.net:8080/api/v1/" ;
         searchResultsList = <SearchResultsPerson data = {data} setPage = {props.setPage} page={props.page}/>
     } else {
-        apiURL = "http://localhost:8080/api/v1/title/search/";
+        apiURL = "http://vlasopoulos.ddns.net:8080/api/v1/title/search/";
     }
     
     const searchURL: string = apiURL + props.searchTerms;

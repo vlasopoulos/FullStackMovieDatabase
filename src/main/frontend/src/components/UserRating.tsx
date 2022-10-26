@@ -16,16 +16,16 @@ const UserRating = (props: Props) => {
       if (newRating != 0) {
       //send insert
       const body = { tconst : props.tconst, rating: newRating };
-      axios.post("http://localhost:8080/api/v1/user/rating",body);
+      axios.post("http://vlasopoulos.ddns.net:8080/api/v1/user/rating",body);
       }
     } else {
       if (newRating === 0) {
         //send delete
-        axios.delete("http://localhost:8080/api/v1/user/rating/" + props.tconst)
+        axios.delete("http://vlasopoulos.ddns.net:8080/api/v1/user/rating/" + props.tconst)
       } else {
         //send update
         const body = { tconst : props.tconst, rating: newRating };
-        axios.put("http://localhost:8080/api/v1/user/rating",body);
+        axios.put("http://vlasopoulos.ddns.net:8080/api/v1/user/rating",body);
       }
     }
   }

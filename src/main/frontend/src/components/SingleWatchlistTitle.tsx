@@ -14,7 +14,7 @@ const SingleWatchlistTitle = (props: Props) => {
 
   const handleClick = () => {
     setWatchlist(!watchlist);
-    axios.delete("http://localhost:8080/api/v1/user/watchlist/" + props.content.tconst);
+    axios.delete("http://vlasopoulos.ddns.net:8080/api/v1/user/watchlist/" + props.content.tconst);
   };
 
   return (

@@ -14,9 +14,9 @@ const [watched,setWatched] = useState<boolean>(props.watched)
     
     if (!watched) {
       const body = { tconst : props.tconst };
-      axios.post("http://localhost:8080/api/v1/user/watched",body);
+      axios.post("http://vlasopoulos.ddns.net:8080/api/v1/user/watched",body);
     } else {
-      axios.delete("http://localhost:8080/api/v1/user/watched/" + props.tconst);
+      axios.delete("http://vlasopoulos.ddns.net:8080/api/v1/user/watched/" + props.tconst);
     }
   };
 

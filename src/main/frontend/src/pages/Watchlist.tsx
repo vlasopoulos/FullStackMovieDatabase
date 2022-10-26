@@ -17,7 +17,7 @@ const Watchlist = (props: Props) => {
       const fetchData = async () =>{
         setLoading(true);
         try {
-          const response = await axios.get("http://localhost:8080/api/v1/user/watchlist");
+          const response = await axios.get("http://vlasopoulos.ddns.net:8080/api/v1/user/watchlist");
           setData(response.data);
         } catch (error) {
           console.error("Error!");
