@@ -178,11 +178,27 @@ public class DataPreProcessor {
     private void processTitleAkas() {
         System.out.println("Processing file: " + titleAkas.getPath());
         try {
-            Files.move(titleAkas.toPath(),titleAkasOutput.toPath());
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(titleAkas), StandardCharsets.UTF_8));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(titleAkasOutput), StandardCharsets.UTF_8));
+            bw.write(br.readLine()+'\n'); // write the header
+            String line;
+
+            while ( (line = br.readLine()) != null) {
+                line = line.replace("\"\"", "\"");
+                bw.write(line);
+            }
+            bw.close();
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Finished processing file: " + titleAkas.getPath());
+
+        System.gc(); // force garbage collection for delete() to work
+
+        System.out.println("Deleting: " + titleAkas.getPath());
+        if (titleAkas.delete()) System.out.println("Deleted: " + titleAkas.getPath());
+        else System.out.println("Could not delete: " + titleAkas.getPath());
     }
 
     private void processTitleRatings() {
