@@ -118,7 +118,8 @@ public class DataPreProcessor {
                         .replace("}}","}")
                         .replace(",,","")
                         .replace("\\}","}")
-                        .replace(", }","}");
+                        .replace(", }","}")
+                        .replace(",}", "}");
                 bw.write(line);
             }
             bw.close();
